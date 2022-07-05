@@ -34,13 +34,18 @@ module.exports = {
     nav: [
       {
         text: "JQ学习",
-        link: "/jq/jq1.html",
+        link: "/jq/jq1.html/",
         activeMatch: "/jq/",
       },
       {
         text: "Vue2学习",
         link: "/vue/vue1.html",
         activeMatch: "/vue/",
+      },
+      {
+        text: "Ajax学习",
+        link: "/Ajax/Ajax1.html",
+        activeMatch: "/Ajax/",
       },
     ],
     // socialLinks: [
@@ -70,9 +75,21 @@ module.exports = {
         ],
       },
       {
+        text: "Ajax学习",
+        collapsible: true,
+        items: [
+          { text: "Ajax-Package", link: "/Ajax/Package.md" },
+          { text: "Ajax的第一堂课", link: "/Ajax/Ajax1.md" },
+          { text: "Ajax的第二堂课", link: "/Ajax/Ajax2.md" },
+        ],
+      },
+      {
         text: "Vue2学习",
         collapsible: true,
-        items: [{ text: "vue2的第一课堂", link: "/vue/vue1.md" }],
+        items: [
+          { text: "vue2的第一课堂", link: "/vue/vue1.md" },
+          { text: "vue2的第二课堂", link: "/vue/vue2.md" },
+        ],
       },
     ],
   },
