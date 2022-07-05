@@ -33,6 +33,11 @@ module.exports = {
     // 顶部导航
     nav: [
       {
+        text: "JS学习",
+        link: "/JS/intro.html",
+        activeMatch: "/JS/",
+      },
+      {
         text: "JQ学习",
         link: "/jq/jq1.html/",
         activeMatch: "/jq/",
@@ -67,6 +72,11 @@ module.exports = {
     // 侧边栏
     sidebar: [
       {
+        text: "JS学习",
+        collapsible: true,
+        items: [{ text: "JS简介", link: "/JS/intro.md" }],
+      },
+      {
         text: "JQ学习",
         collapsible: true,
         items: [
@@ -78,7 +88,6 @@ module.exports = {
         text: "Ajax学习",
         collapsible: true,
         items: [
-          { text: "Ajax-Package", link: "/Ajax/Package.md" },
           { text: "Ajax的第一堂课", link: "/Ajax/Ajax1.md" },
           { text: "Ajax的第二堂课", link: "/Ajax/Ajax2.md" },
         ],
