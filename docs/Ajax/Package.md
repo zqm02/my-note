@@ -1,3 +1,4 @@
+    ```js
     function Ajax_get(){
         const xhr = new XMLHttpRequest;
         xhr.open("GET","url",ture);
@@ -18,7 +19,8 @@
         }
     }
 
-
+````
+```js
     function Ajax_post(){
         const xhr = new XMLHttpRequest;
         xhr.open("POST","url",true);
@@ -37,3 +39,4 @@
             }
         }
     }
+````
