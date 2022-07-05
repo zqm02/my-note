@@ -1,4 +1,4 @@
-import{_ as n,c as t,o as a,a as e}from"./app.e711c1f7.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"Ajax/Package.md"}'),s={name:"Ajax/Package.md"},r=e("pre",null,[e("code",null,`function Ajax_get(){
+import{_ as n,c as t,o as a,a as e}from"./app.545bcdf9.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"Ajax/Package.md"}'),s={name:"Ajax/Package.md"},r=e("pre",null,[e("code",null,`function Ajax_get(){
     const xhr = new XMLHttpRequest;
     xhr.open("GET","url",ture);
      const headers = {
@@ -8,7 +8,7 @@ import{_ as n,c as t,o as a,a as e}from"./app.e711c1f7.js";const _=JSON.parse('{
       xhr.setRequestHeader(key, headers[key])
     );
 
-    xhr.send(JSON.stringify());
+    xhr.send(JSON.stringify(\u6570\u636E));
     xhr.onreadystatechange = function(){
         if(onreadystatechange === 4){
             if(xhr.status >= 200 && xhr.status < 300){
@@ -28,7 +28,7 @@ function Ajax_post(){
     Object.keys(headers).forEach((key) =>
       xhr.setRequestHeader(key, headers[key])
     );
-    xhr.send(JSON.stringify());
+    xhr.send(JSON.stringify(\u6570\u636E));
     xhr.onreadystatechange = function(){
         if(onreadystatechange === 4){
             if(xhr.status >= 200 && xhr.status < 300){
