@@ -70,9 +70,9 @@ module.exports = {
         text: "JS学习",
         collapsible: true,
         items: [
-          { text: "JS简介", link: "/JS/1_1introduction.md" },
-          { text: "JS手册与规范", link: "/JS/1_2standard.md" },
-          { text: "JS手册与规范", link: "/JS/1_3编辑器.md" },
+          { text: "1.1JS简介", link: "/JS/1_1introduction.md" },
+          { text: "1.2JS手册与规范", link: "/JS/1_2standard.md" },
+          { text: "1.3编辑器", link: "/JS/1_3编辑器.md" },
         ],
       },
       {
