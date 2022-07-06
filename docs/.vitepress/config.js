@@ -72,7 +72,8 @@ module.exports = {
         items: [
           { text: "1.1JS简介", link: "/JS/1_1introduction.md" },
           { text: "1.2JS手册与规范", link: "/JS/1_2standard.md" },
-          { text: "1.3编辑器", link: "/JS/1_3编辑器.md" },
+          { text: "1.3编辑器", link: "/JS/1_3代码编辑器.md" },
+          { text: "1.4编辑器", link: "/JS/1_4开发者控制台.md" },
         ],
       },
       {
