@@ -47,11 +47,6 @@ module.exports = {
         link: "/vue/vue1.html",
         activeMatch: "/vue/",
       },
-      {
-        text: "Ajax学习",
-        link: "/Ajax/Ajax1.html",
-        activeMatch: "/Ajax/",
-      },
     ],
     // socialLinks: [
     //   { icon: "github", link: "https://github.com/cll123456/common-study" },
@@ -74,7 +69,10 @@ module.exports = {
       {
         text: "JS学习",
         collapsible: true,
-        items: [{ text: "JS简介", link: "/JS/intro.md" }],
+        items: [
+          { text: "JS简介", link: "/JS/intro.md" },
+          { text: "手册与规范", link: "/JS/stamdard.md" },
+        ],
       },
       {
         text: "JQ学习",
@@ -82,14 +80,6 @@ module.exports = {
         items: [
           { text: "JQ的第一课堂", link: "/jq/jq1.md" },
           { text: "JQ的第二课堂", link: "/jq/jq2.md" },
-        ],
-      },
-      {
-        text: "Ajax学习",
-        collapsible: true,
-        items: [
-          { text: "Ajax的第一堂课", link: "/Ajax/Ajax1.md" },
-          { text: "Ajax的第二堂课", link: "/Ajax/Ajax2.md" },
         ],
       },
       {
