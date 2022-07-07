@@ -73,7 +73,9 @@ module.exports = {
           { text: "1.1JS简介", link: "/JS/1_1introduction.md" },
           { text: "1.2JS手册与规范", link: "/JS/1_2standard.md" },
           { text: "1.3编辑器", link: "/JS/1_3代码编辑器.md" },
-          { text: "1.4编辑器", link: "/JS/1_4开发者控制台.md" },
+          { text: "1.4开发者控制台", link: "/JS/1_4开发者控制台.md" },
+          { text: "2.1Hello,World!", link: "/JS/2_1HelloWorld.md" },
+          { text: "2.2代码结构", link: "/JS/2_2code-structure" },
         ],
       },
       {
