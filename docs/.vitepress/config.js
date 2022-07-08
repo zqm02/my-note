@@ -78,6 +78,7 @@ module.exports = {
           { text: "2.2代码结构", link: "/JS/2_2code-structure.md" },
           { text: "2.3现代模式，'use strict'", link: "/JS/2_3use-strict.md" },
           { text: "2.4变量", link: "/JS/2_4variate.md" },
+          { text: "2.5数据类型", link: "/JS/2_5DataType.md" },
         ],
       },
       {
