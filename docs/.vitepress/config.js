@@ -79,6 +79,7 @@ module.exports = {
           { text: "2.3现代模式，'use strict'", link: "/JS/2_3use-strict.md" },
           { text: "2.4变量", link: "/JS/2_4variate.md" },
           { text: "2.5数据类型", link: "/JS/2_5DataType.md" },
+          { text: "2.6交互", link: "/JS/2_6interact.md" },
         ],
       },
       {
