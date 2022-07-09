@@ -95,7 +95,7 @@ module.exports = {
           { text: "2.5数据类型", link: "/JS基础知识/2_5DataType.md" },
           { text: "2.6交互", link: "/JS基础知识/2_6interact.md" },
           { text: "2.7类型转换", link: "/JS基础知识/2_7TypeCast.md" },
-          { text: "2.8基础运算符法", link: "/JS基础知识/2_8BaseOperator.md" },
+          { text: "2.8基础运算符", link: "/JS基础知识/2_8BaseOperator.md" },
         ],
       },
       {
