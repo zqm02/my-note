@@ -33,9 +33,14 @@ module.exports = {
     // 顶部导航
     nav: [
       {
-        text: "JS学习",
-        link: "/JS/introduction.html",
-        activeMatch: "/JS/",
+        text: "JS简介",
+        link: "/JS简介/introduction.html",
+        activeMatch: "/JS简介/",
+      },
+      {
+        text: "JS基础知识",
+        link: "/JS基础知识/HelloWorld.html",
+        activeMatch: "/JS基础知识/",
       },
       {
         text: "JQ学习",
@@ -67,19 +72,28 @@ module.exports = {
     // 侧边栏
     sidebar: [
       {
-        text: "JS学习",
+        text: "JS简介",
         collapsible: true,
         items: [
-          { text: "1.1JS简介", link: "/JS/1_1introduction.md" },
-          { text: "1.2JS手册与规范", link: "/JS/1_2standard.md" },
-          { text: "1.3编辑器", link: "/JS/1_3code-editor.md" },
-          { text: "1.4开发者控制台", link: "/JS/1_4console.md" },
-          { text: "2.1Hello,World!", link: "/JS/2_1HelloWorld.md" },
-          { text: "2.2代码结构", link: "/JS/2_2code-structure.md" },
-          { text: "2.3现代模式，'use strict'", link: "/JS/2_3use-strict.md" },
-          { text: "2.4变量", link: "/JS/2_4variate.md" },
-          { text: "2.5数据类型", link: "/JS/2_5DataType.md" },
-          { text: "2.6交互", link: "/JS/2_6interact.md" },
+          { text: "1.1JS简介", link: "/JS简介/1_1introduction.md" },
+          { text: "1.2JS手册与规范", link: "/JS简介/1_2standard.md" },
+          { text: "1.3编辑器", link: "/JS简介/1_3code-editor.md" },
+          { text: "1.4开发者控制台", link: "/JS简介/1_4console.md" },
+        ],
+      },
+      {
+        text: "JS基础知识",
+        cpollaapsible: true,
+        items: [
+          { text: "2.1Hello,World!", link: "/JS基础知识/2_1HelloWorld.md" },
+          { text: "2.2代码结构", link: "/JS基础知识/2_2code-structure.md" },
+          {
+            text: "2.3现代模式，'use strict'",
+            link: "/JS基础知识/2_3use-strict.md",
+          },
+          { text: "2.4变量", link: "/JS基础知识/2_4variate.md" },
+          { text: "2.5数据类型", link: "/JS基础知识/2_5DataType.md" },
+          { text: "2.6交互", link: "/JS基础知识/2_6interact.md" },
         ],
       },
       {
