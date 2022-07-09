@@ -34,12 +34,12 @@ module.exports = {
     nav: [
       {
         text: "JS简介",
-        link: "/JS简介/introduction.html",
+        link: "/JS简介/1_1introduction.html",
         activeMatch: "/JS简介/",
       },
       {
         text: "JS基础知识",
-        link: "/JS基础知识/HelloWorld.html",
+        link: "/JS基础知识/2_1HelloWorld.html",
         activeMatch: "/JS基础知识/",
       },
       {
@@ -94,6 +94,7 @@ module.exports = {
           { text: "2.4变量", link: "/JS基础知识/2_4variate.md" },
           { text: "2.5数据类型", link: "/JS基础知识/2_5DataType.md" },
           { text: "2.6交互", link: "/JS基础知识/2_6interact.md" },
+          { text: "2.7类型转换", link: "/JS基础知识/2_7TypeCast.md" },
         ],
       },
       {
