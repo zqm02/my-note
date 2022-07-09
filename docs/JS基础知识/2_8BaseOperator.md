@@ -177,7 +177,7 @@ alert(+apples + +oranges); // 5
 在 JavaScript 中有众多运算符。每个运算符法都有对应的先级数字。数字越大，越先执行。如果优先级相同，则按照从左至右的顺序执行。
 这是一个[优先级表](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)(你没有必要完全记住，但要记住一元运算符优先级高于二元运算符):
 |优先级|名称|符号|
-|-|:-------:|:------:|
+|:------:|:----:|:------:|
 |...|...|...|
 |15|一元加号|+|
 |15|一元负号|-|
