@@ -84,9 +84,7 @@ aelrt(false == 0); // true
 > ```js
 > let a = 0;
 > alert(Boolean(a)); // false
-> ```
 >
-> ```js
 > let b = "0";
 > alert(Boolean(b)); // true
 >
@@ -94,10 +92,6 @@ aelrt(false == 0); // true
 > ```
 >
 > 对于 JavaScript 而言，这种现象其实挺正常的。因为 JavaScript 会把待比较的值转化为数字后再做比较（因此`"0"`变成了`0`）。若把一个变量转化为`Boolean`值，则会使用其他的类型转换规则。
->
-> ```
->
-> ```
 
 ## 严格相等
 
