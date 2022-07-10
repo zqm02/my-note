@@ -97,6 +97,10 @@ module.exports = {
           { text: "2.7类型转换", link: "/JS基础知识/2_7TypeCast.md" },
           { text: "2.8基础运算符", link: "/JS基础知识/2_8BaseOperator.md" },
           { text: "2.9值的比较", link: "/JS基础知识/2_9ValueComparison.md" },
+          {
+            text: "2.10条件分支",
+            link: "/JS基础知识/2_10ConditionalBranch.md",
+          },
         ],
       },
       {
