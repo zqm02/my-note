@@ -109,6 +109,10 @@ module.exports = {
             text: "2.12空值合并运算符",
             link: "/JS基础知识/2_12NullishCoalescing.md",
           },
+          {
+            text: "2.13循环",
+            link: "/JS基础知识/2_13circulation.md",
+          },
         ],
       },
       {
