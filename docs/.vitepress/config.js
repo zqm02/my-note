@@ -101,6 +101,10 @@ module.exports = {
             text: "2.10条件分支",
             link: "/JS基础知识/2_10ConditionalBranch.md",
           },
+          {
+            text: "2.11逻辑运算符",
+            link: "/JS基础知识/2_11LogicalOperator.md",
+          },
         ],
       },
       {
