@@ -113,6 +113,10 @@ module.exports = {
             text: "2.13循环",
             link: "/JS基础知识/2_13circulation.md",
           },
+          {
+            text: "2.14sitch语句",
+            link: "/JS知识基础/2_14switch.md",
+          },
         ],
       },
       {
