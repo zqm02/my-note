@@ -115,7 +115,7 @@ module.exports = {
           },
           {
             text: "2.14switch语句",
-            link: "/JS知识基础/2_14switch.md",
+            link: "/JS基础知识/2_14switch.md",
           },
         ],
       },
