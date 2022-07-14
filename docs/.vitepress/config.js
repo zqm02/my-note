@@ -121,6 +121,10 @@ module.exports = {
             text: "2.15函数",
             link: "/JS基础知识/2_15function.md",
           },
+          {
+            text: "2.16函数表达式",
+            link: "/JS基础知识/2_16FunctionExpression.md",
+          },
         ],
       },
       {
