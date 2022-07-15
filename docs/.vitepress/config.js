@@ -119,6 +119,10 @@ module.exports = {
             text: "2.17箭头函数",
             link: "/JS基础知识/2_17ArrowFunction.md",
           },
+          {
+            text: "2.18JavaScript特性",
+            link: "/JS基础知识/2_18JSspeciality.md",
+          },
         ],
       },
     ],
