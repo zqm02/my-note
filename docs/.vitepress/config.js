@@ -42,16 +42,6 @@ module.exports = {
         link: "/JS基础知识/2_1HelloWorld.html",
         activeMatch: "/JS基础知识/",
       },
-      {
-        text: "JQ学习",
-        link: "/jq/jq1.html/",
-        activeMatch: "/jq/",
-      },
-      {
-        text: "Vue2学习",
-        link: "/vue/vue1.html",
-        activeMatch: "/vue/",
-      },
     ],
     // socialLinks: [
     //   { icon: "github", link: "https://github.com/cll123456/common-study" },
@@ -129,22 +119,6 @@ module.exports = {
             text: "2.17箭头函数",
             link: "/JS基础知识/2_17ArrowFunction.md",
           },
-        ],
-      },
-      {
-        text: "JQ学习",
-        collapsible: true,
-        items: [
-          { text: "JQ的第一课堂", link: "/jq/jq1.md" },
-          { text: "JQ的第二课堂", link: "/jq/jq2.md" },
-        ],
-      },
-      {
-        text: "Vue2学习",
-        collapsible: true,
-        items: [
-          { text: "vue2的第一课堂", link: "/vue/vue1.md" },
-          { text: "vue2的第二课堂", link: "/vue/vue2.md" },
         ],
       },
     ],
