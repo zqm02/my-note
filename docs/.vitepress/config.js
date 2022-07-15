@@ -83,7 +83,7 @@ module.exports = {
       },
       {
         text: "JS基础知识",
-        cpollaapsible: true,
+        collapsible: true,
         items: [
           { text: "2.1Hello,World!", link: "/JS基础知识/2_1HelloWorld.md" },
           { text: "2.2代码结构", link: "/JS基础知识/2_2code-structure.md" },
@@ -124,6 +124,10 @@ module.exports = {
           {
             text: "2.16函数表达式",
             link: "/JS基础知识/2_16FunctionExpression.md",
+          },
+          {
+            text: "2.17箭头函数",
+            link: "/JS基础知识/2_17ArrowFunction.md",
           },
         ],
       },
