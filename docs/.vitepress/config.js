@@ -37,10 +37,17 @@ module.exports = {
         link: "/JS简介/1_1introduction.html",
         activeMatch: "/JS简介/",
       },
+
       {
         text: "JS基础知识",
         link: "/JS基础知识/2_1HelloWorld.html",
         activeMatch: "/JS基础知识/",
+      },
+
+      {
+        text: "代码质量",
+        link: "/代码质量/3_1debug.html",
+        activeMatch: "/代码质量/",
       },
     ],
     // socialLinks: [
@@ -71,6 +78,7 @@ module.exports = {
           { text: "1.4开发者控制台", link: "/JS简介/1_4console.md" },
         ],
       },
+
       {
         text: "JS基础知识",
         collapsible: true,
@@ -123,6 +131,15 @@ module.exports = {
             text: "2.18JavaScript特性",
             link: "/JS基础知识/2_18JSspeciality.md",
           },
+        ],
+      },
+
+      {
+        text: "代码质量",
+        collapsible: true,
+        items: [
+          { text: "3.1在浏览器中调试", link: "/代码质量/3_1debug.md" },
+          { text: "3.2代码风格", link: "/代码质量/3_2CodeStyle.md" },
         ],
       },
     ],
