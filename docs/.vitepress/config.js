@@ -140,6 +140,7 @@ module.exports = {
         items: [
           { text: "3.1在浏览器中调试", link: "/代码质量/3_1debug.md" },
           { text: "3.2代码风格", link: "/代码质量/3_2CodeStyle.md" },
+          { text: "3.3注释", link: "3_3annotation.md" },
         ],
       },
     ],
