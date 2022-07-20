@@ -142,6 +142,7 @@ module.exports = {
           { text: "3.2代码风格", link: "/代码质量/3_2CodeStyle.md" },
           { text: "3.3注释", link: "/代码质量/3_3annotation.md" },
           { text: "3.4忍者代码", link: "/代码质量/3_4NinjaCode.md" },
+          { text: "3.5使用Mocha自动化测试", link: "/代码质量/3_5Mocha.md" },
         ],
       },
     ],
