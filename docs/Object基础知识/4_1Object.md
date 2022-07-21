@@ -7,7 +7,7 @@
 我们可以通过使用带有可选**属性列表**的花括号`{...}`来创建对象。一个属性就是一个键值对("key:value")，其中键(`key`)是一个字符串(也叫做属性名)，值(`value`)可以是任何值。
 
 我们可以把对象想象成一个带有签名文件的文件柜。每一条数据都基于键(`key`)存储于文件中。这样我们就可以很容易根据文件名(也就是"键")查找文件或添加/删除文件了。
-![图片](../assert/imgs/key.jpg.png)
+![图片](../assert/imgs/key.png)
 我们可以用下面两种语法中的任一种来创建一个空的对象(“空文件柜”):
 
 ```js
@@ -15,7 +15,7 @@ let user = new Object(); // “构造函数” 的语法
 let user = {}; // “字面量” 的语法
 ```
 
-![图片](../assert/imgs/Object1.jpg.png)
+![图片](../assert/imgs/Object1.png)
 
 通常，我们用花括号。这种方式我们叫做**字面量**。
 
@@ -39,7 +39,7 @@ let user = {
 
 生成的`user`对象可以被想象为一个放置着两个标记着"name"和"age"的文件的柜子。
 
-![图片](../assert/imgs/Object2.jpg.png)
+![图片](../assert/imgs/Object2.png)
 
 我们可以随时添加、删除和读取文件。
 
@@ -57,7 +57,7 @@ alert(user.age); // 30
 user.isAdmin = true;
 ```
 
-![图片](../assert/imgs/Object3.jpg.png)
+![图片](../assert/imgs/Object3.png)
 
 我们可以用`delete`操作符移除属性:
 
@@ -65,7 +65,7 @@ user.isAdmin = true;
 delete user.age;
 ```
 
-![图片](../assert/imgs/Object4.jpg.png)
+![图片](../assert/imgs/Object4.png)
 
 我们也可以用多字词语来作为属性名，但必须给它们加上引号:
 
@@ -77,7 +77,7 @@ let user = {
 };
 ```
 
-![图片](../assert/imgs/Object5.jpg.png)
+![图片](../assert/imgs/Object5.png)
 
 列表中的最后一个属性以逗号结尾:
 
