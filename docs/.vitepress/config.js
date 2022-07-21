@@ -49,6 +49,11 @@ module.exports = {
         link: "/代码质量/3_1debug.html",
         activeMatch: "/代码质量/",
       },
+      {
+        text: "Object基础知识",
+        link: "/Object基础知识/Object.html",
+        activeMatch: "/Object基础知识/",
+      },
     ],
     // socialLinks: [
     //   { icon: "github", link: "https://github.com/cll123456/common-study" },
@@ -143,7 +148,13 @@ module.exports = {
           { text: "3.3注释", link: "/代码质量/3_3annotation.md" },
           { text: "3.4忍者代码", link: "/代码质量/3_4NinjaCode.md" },
           { text: "3.5使用Mocha自动化测试", link: "/代码质量/3_5Mocha.md" },
+          { text: "3.6 Polyfill和转译器", link: "/代码质量/3_6Polyfill.md" },
         ],
+      },
+      {
+        text: "Object基础知识",
+        collapsible: true,
+        items: [{ text: "4.1对象", link: "/Object基础知识/4_1Object.md" }],
       },
     ],
   },
