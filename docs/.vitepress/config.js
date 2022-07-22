@@ -154,7 +154,10 @@ module.exports = {
       {
         text: "Object基础知识",
         collapsible: true,
-        items: [{ text: "4.1对象", link: "/Object基础知识/4_1Object.md" }],
+        items: [
+          { text: "4.1对象", link: "/Object基础知识/4_1Object.md" },
+          { text: "4.2对象引用和复制", link: "/Object基础知识/4_2copy.md" },
+        ],
       },
     ],
   },
