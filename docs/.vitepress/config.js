@@ -159,6 +159,11 @@ module.exports = {
           { text: "4.2对象引用和复制", link: "/Object基础知识/4_2copy.md" },
           { text: "4.3垃圾回收", link: "/Object基础知识/4_3recycle.md" },
           { text: "4.4对象方法,“this”", link: "/Object基础知识/4_4method.md" },
+          {
+            text: "4.5构造器和操作符",
+            link: "/Object基础知识/4_5constructor.md",
+          },
+          { text: "4.6可选链", link: "/Object基础知识/4_6OptionalChain.md" },
         ],
       },
     ],
