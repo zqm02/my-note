@@ -164,6 +164,7 @@ module.exports = {
             link: "/Object基础知识/4_5constructor.md",
           },
           { text: "4.6可选链", link: "/Object基础知识/4_6OptionalChain.md" },
+          { text: "4.7symbol类型", link: "/Object基础知识/4_7symbol.md" },
         ],
       },
     ],
