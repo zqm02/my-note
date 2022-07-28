@@ -165,6 +165,10 @@ module.exports = {
           },
           { text: "4.6可选链", link: "/Object基础知识/4_6OptionalChain.md" },
           { text: "4.7symbol类型", link: "/Object基础知识/4_7symbol.md" },
+          {
+            text: "4.8对象--原始值转换",
+            link: "/Object基础知识/4_8valueConversion.md",
+          },
         ],
       },
     ],
