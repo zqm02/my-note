@@ -51,8 +51,13 @@ module.exports = {
       },
       {
         text: "Object基础知识",
-        link: "/Object基础知识/Object.html",
+        link: "/Object基础知识/4_1Object.html",
         activeMatch: "/Object基础知识/",
+      },
+      {
+        text: "数据类型",
+        link: "/数据类型/5_1PrimitivetypeMethods.html",
+        activeMatch: "/数据类型/",
       },
     ],
     // socialLinks: [
@@ -168,6 +173,20 @@ module.exports = {
           {
             text: "4.8对象--原始值转换",
             link: "/Object基础知识/4_8valueConversion.md",
+          },
+        ],
+      },
+      {
+        text: "数据类型",
+        collapsible: true,
+        items: [
+          {
+            text: "5.1原始类型的方法",
+            link: "/数据类型/5_1PrimitivetypeMethods.md",
+          },
+          {
+            text: "5.2数字类型",
+            link: "/数据类型/5_2NumberType.md",
           },
         ],
       },
