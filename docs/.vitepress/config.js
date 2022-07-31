@@ -188,6 +188,10 @@ module.exports = {
             text: "5.2数字类型",
             link: "/数据类型/5_2NumberType.md",
           },
+          {
+            text: "5.3字符串",
+            link: "/数据类型/5_3String.md",
+          },
         ],
       },
     ],
