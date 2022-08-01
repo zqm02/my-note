@@ -192,6 +192,10 @@ module.exports = {
             text: "5.3字符串",
             link: "/数据类型/5_3String.md",
           },
+          {
+            text: "5.4数组",
+            link: "/数据类型/5_4Array.md",
+          },
         ],
       },
     ],
