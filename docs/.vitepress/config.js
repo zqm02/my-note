@@ -196,6 +196,10 @@ module.exports = {
             text: "5.4数组",
             link: "/数据类型/5_4Array.md",
           },
+          {
+            text: "5.5数组方法",
+            link: "/数据类型/5_5ArrayMethod.md",
+          },
         ],
       },
     ],
