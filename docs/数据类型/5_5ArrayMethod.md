@@ -484,3 +484,304 @@ alert(arr); // 1,2,15
 
 > **使用`localeCompare`for strings**
 > 你记得[字符串比较](https://zh.javascript.info/string#correct-comparisons)算法吗？默认情况下，它通过字母的代码比较字母。
+>
+> 对于许多字母，最好使用`str.localeCompare`方法正确地对字母进行排序，例如`Ö`。
+>
+> 例如，让我们用德语对几个国家/地区进行排序:
+>
+> ```js
+> let countries = ["Österreich", "Andorra", "Vietnam"];
+>
+> alert(countries.sort((a, b) => (a > b ? 1 : -1))); //Andorra, Vietnam, Österreich（错的）
+>
+> alert(countries.sort((a, b) => a.localeCompare(b))); // Andorra, Österreich, Vietnam（对的）
+> ```
+
+**reverse**
+
+[arr.reverse](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)方法用于颠倒`arr`中元素的顺序。
+
+例如:
+
+```js
+let arr = [1, 2, 3, 4, 5];
+arr.reverse();
+
+alert(arr); // 5,4,3,2,1
+```
+
+它也会返回颠倒后的数组`arr`。
+
+**split 和 join**
+
+举一个现实生活场景的例子。我们正在编写一个消息应用程序，并且该人员输入以逗号分隔的接收列表:
+`John,Pete,Mary`。但对我们来说，名字数组比单个字符串舒服得多。怎么做才能获得这样的数组呢？
+
+[str.split(delim)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/String/split)方法可以做到。它通过给定的分隔符`delim`将字符串分割为一个数组。
+
+在下面的例子中，我们用"逗号后跟着一个空格"作为分隔符:
+
+```js
+let names = "Bilbo,Gandalf,Nazgul";
+
+let arr = names.split(", ");
+
+for (let name of arr) {
+  alert(`A message to ${name}.`); //  A message to Bilbo (和其他名字)
+}
+```
+
+`split`方法有一个可选的第二个数字参数--对数组长度的限制。如果提供了，那么额外的元素会被忽略。
+但实际上它很少使用:
+
+```js
+let arr = "Bilbo,Gandalf,Nazgul,Saruman".split(", ", 2);
+
+alert(arr); // Bilbo, Gandalf
+```
+
+> **拆分为字母**
+> 调用带有空参数`s`的`split(s)`，会将字符串拆分为字母数组:
+>
+> ```js
+> let str = "test";
+>
+> alert(str.split("")); // t,e,s,t
+> ```
+
+[arr.join(glue)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/join)与`split`相反。它会在它们之间创建一串由`glue`粘合的`arr`项。
+
+例如:
+
+```js
+let arr = ["Bilbo,Gandalf,Nazgul"];
+
+let str = arr.join(";"); // 使用分号 ; 将数组粘合成字符串
+
+alert(str); //  Bilbo;Gandalf;Nazgul
+```
+
+**reduce/reduceRight**
+
+当我们需要遍历一个数组时--我们可以使用`forEach`,`for`,`for..of`。
+
+当我们需要遍历并返回每个元素的数据时--我们可以使用`map`。
+
+[arr.reduce](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)方法和[arr.reduceRight](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)方法和上面的种类差不多，但稍微复杂一点。它们用于根据数组计算单个值。
+
+语法是:
+
+```js
+let value = arr.reduce(
+  function (accumulator, item, index, array) {
+    // ....
+  },
+  [initial]
+);
+```
+
+该函数一个接一个地应用于所有数组元素，并将其结果“搬运(carry on)”到下一个调用。
+
+参数:
+
+- `accumulator`--是上一个函数调用的结果，第一次等于`initial`(如果提供了`initial`的话)。
+- `item`--当前的数组元素。
+- `index`--当前索引。
+- `arr`--数组本身。
+
+应用函数时，上一个函数调用的结果将作为第一个参数传递给下一个函数。
+
+因此，第一个参数本质上是累加器，用于存储所有先前执行的组合结果。最后，它成为`reduce`的结果。
+
+听起来复杂吗？
+
+掌握这个知识点的最简单的方法就是通过实例:
+在这里，我们通过一行代码得到一个数组的总和:
+
+```js
+let arr = [1, 2, 3, 4, 5];
+
+let result = arr.reduce((sum, current) => sum + current, 0);
+
+alert(result); // 15
+```
+
+传递给`reduce`的函数仅使用了 2 个参数，通常这就足够了。
+
+让我们看看细节，到底发生了什么。  
+1.在第一次运行时，`sum`的值为初始值`initial`(`reduce`的最后一个参数)，等于 0，
+`current`是第一个数组元素，等于`1`。所以函数的运行结果是`1`。 2.在第二次运行时，`sum = 1`,我们将第二个数组元素(`2`)与其相加并返回。 3.在第三次运行中，`sum = 3`，我们继续把下一个元素与其相加，以此类推....
+
+![图片](../assert/imgs/arraymethod1.png)
+
+或者以表格的形式表示，每一行代表的是对下一个数组元素的函数调用:
+||`sum`|`current`|`result`|
+|:-------:|:-----:|:-----:|:-----:|
+|第 1 次调用|`0`|`1`|`1`|
+|第 2 次调用|`1`|`2`|`3`|
+|第 3 次调用|`3`|`3`|`6`|
+|第 4 次调用|`6`|`4`|`10`|
+|第 5 次调用|`10`|`5`|`15`|
+
+在这里，我们可以清楚地看到上一个调用的结果如何成为下一个调用的第一个参数。
+
+我们也可以省略初始值:
+
+```js
+let arr = [1, 2, 3, 4, 5];
+
+// 删除 reduce 的初始值 (没有0)
+let result = arr.reduce((sum, current) => sum + current);
+
+alert(result); // 15
+```
+
+结果是一样的。这是因为如果没有初始值，那么`reduce`会将数组的第一个元素作为初始值，并从第二个元素开始迭代。
+
+计算表与上面相同，只是去掉第一行。
+
+但是这种使用需要非常小心。如果数组为空，那么在没有初始值的情况下调用`reduce`会导致错误。
+
+例如:
+
+```js
+let arr = [];
+
+// Error: Reduce of empty array with no initial value
+// 如果初始值存在，则 reduce 将为空 arr 返回它(即这个初始值)
+arr.reduce((sum, current) => sum + current);
+```
+
+所以建议始终指定初始值。
+
+[arr.reduceRight](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)和[arr.reduce](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)方法的功能一样，只是遍历为从右到左。
+
+## Array.isArray
+
+数组是基于对象的，不构成单独的语言类型。
+
+所以`typeof`不能帮助从数组中区分出普通对象:
+
+```js
+alert(typeof {}); // object
+alert(typeof []); // object(相同)
+```
+
+......但是数组经常被使用，因此有一种特殊的方法用于判断:[Array.isArray(value)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)。如果`value`是一个数组，则返回`true`;否则返回`false`。
+
+```js
+alert(Array.isArray({})); // false
+
+alert(Array.isArray([])); // true
+```
+
+## 大多数方法都支持 "thisArg"
+
+几乎所有调用函数的数组方法--比如`find`,`filter`,`map`,除了`sort`是一个特例，都接受一个可选的附加参数`thisArg`。
+
+上面的部分中没有解释该参数，因为该参数很少使用。但是为了完整性，我们需要讲讲它。
+
+以下是这些方法的完整语法:
+
+```js
+arr.find(func.thisArg);
+arr.filter(func, thisArg);
+arr.map(func, thisArg);
+
+//....
+//thisArg 是可选的最后一个参数
+```
+
+`thisArg`参数的值在`func`中变为`this`。
+
+例如，在这里我们使用`army`对象方法作为过滤器，`thisArg`用于传递上下文(passage the context):
+
+```js
+  let army = {
+    minAge:18,
+    maxAge:27,
+    canJoin(user) {
+      return user.age => this.minAge && user.age < this.maxAge;
+    }
+  };
+
+  let users = [
+    {age:16},
+    {age:20},
+    {age:23},
+    {age:30}
+  ];
+
+  // 找到 army.canJoin 返回 true 的user
+  let soldiers = users.filter(army.canJoin, army);
+
+  alert(soldiers.length);  // 2
+  alert(soldiers[0].age);  // 20
+  alert(soldiers[1].age);  // 23
+```
+
+如果在上面的示例中我们使用了
+`users.filter(army.canJoin)`,那么`army.canJoin`将被作为独立函数调用，并且这时`this = undefined`，从而导致即时错误。
+
+可以用`users.filter(user => army.canJohn(user)`替换对`users.filter(army.canJohn,army)`的调用。前者的使用频率更高，因为对于大多数人来说，它更容易理解。
+
+## 总结
+
+数组方法备忘单:
+
+- 添加/删除元素:
+  - `push(...items)`--向尾端添加元素
+  - `pop()`--从尾端提取一个元素
+  - `shift()`--从首端提取一个元素
+  - `unshift(...items)`--向首端添加元素
+  - `splice(pos,deleteCount,...items)`--从`pos`开始删除`deleteCount`个元素，并插入`items`。
+  - `slice(start,end)`--创建一个新数组，将从索引`start`到索引`end`(但不包括`end`)的元素复制进去。
+  - `concat(...items)`--返回一个新数组:复制当前数组的所有元素，并向其中添加`items`。如果`items`中的任意一项是一个数组，那么久取其元素。
+- 搜索元素:
+
+  - `indexof/lastIndexOf(item,pos)`--从索引`pos`开始搜索`item`，搜索到则返回该项的索引，否则返回`-1`。
+  - `includes(value)`--如果数组有`value`，则返回`true`，否则返回`false`。
+  - `find/filter(func)`--通过`func`过滤元素，返回使`func`返回`true`的第一个值/所有值。
+  - `findIndex`和`func`类似，但返回索引而不是值。
+
+- 遍历元素
+
+  - `forEach(func)`--对每个元素都调用`func`，不返回任何内容。
+
+- 转换数组
+
+  - `map(func)`--根据对每个元素调用`func`的结果创建一个新数组。
+  - `sort(func)`--对数组进行原位(in-place)排序，然后返回它。
+  - `reverse()`--原位(in-place)反转数组，然后返回它。
+  - `split/join`--将字符串转换为数组并返回。
+  - `reduce/reduceRight(func,initial)`--通过对每个元素调用`func`计算数组上的单个值，并在调用之间传递中间结果。
+
+- 其他
+  - `Array.isArray(value)`检查`value`是否是一个数组，如果是则返回`true`，否则返回`false`。
+
+请注意，`sort`,`reverse`,`splice`方法修改的是数组本身。
+
+这些是最常用的方法，它们覆盖 99%的用例。但是还有其他几个:
+
+- [arr.some(fn)/arr.every(fn)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/every)检查数组。
+
+与`map`类似，对数组的每个元素调用函数`fn`。如果任何/所有结果为`true`，则返回`true`，否则返回`false`。
+
+这两个方法的行为类似于`||`和`&&`运算符:如果`fn`返回一个真值，`arr.some()`立即返回`true`并停止迭代其余数组项；如果`fn`返回一个假值，`arr.every()`立即返回`false`并停止对其余数组项的迭代。
+
+我们可以使用`every`来比较数组:
+
+```js
+  function arraysEqual(arr1,arr2) {
+    return arr1.length === arr2.length && arr1.every(value,index) => value === arr2[index];
+  }
+
+  alert(arraysEqula([1,2],[1,2]));  // true
+```
+
+- [arr.fill(value,start,end)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)--从索引`start`到`end`，用重复的`value`填充数组。
+- [arr.copyWithin(target,start,end)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin)--将从位置`start`到`end`的所有元素复制到**自身**的`target`位置(覆盖现有元素)。
+- [arr.flat(depth)/arr.flatMap(fn)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)--从多维数组创建一个新的扁平数组。
+- [Array.of(element0[, element1[, …[, elementN]]])](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array/of)基于可变数量的参数创建一个新的`Array`实例，而不需要考虑参数的数量或类型。
+
+有完整列表，请参阅[手册](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Array)
