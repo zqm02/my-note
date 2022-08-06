@@ -202,7 +202,15 @@ module.exports = {
           },
           {
             text: "5.6Iterable object(可迭代对象)",
-            link: "/数据结构/5_6IterableObject.md",
+            link: "/数据类型/5_6IterableObject.md",
+          },
+          {
+            text: "5.7Map and Set(映射和集合)",
+            link: "/数据类型/5_7MapSet.md",
+          },
+          {
+            text: "5.8WeakMap and WeakSet",
+            link: "/数据类型/5_8WeakMapWeakSet.md",
           },
         ],
       },
