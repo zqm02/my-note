@@ -212,6 +212,10 @@ module.exports = {
             text: "5.8WeakMap and WeakSet",
             link: "/数据类型/5_8WeakMapWeakSet.md",
           },
+          {
+            text: "5.9Object.keys,values,entries",
+            link: "/数据类型/5_9Objectkeys.md",
+          },
         ],
       },
     ],
