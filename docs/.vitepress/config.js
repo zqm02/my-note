@@ -216,6 +216,10 @@ module.exports = {
             text: "5.9Object.keys,values,entries",
             link: "/数据类型/5_9Objectkeys.md",
           },
+          {
+            text: "5.10解构赋值",
+            link: "/数据类型/5_10Destructuring.md",
+          },
         ],
       },
     ],
