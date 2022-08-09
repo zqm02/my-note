@@ -220,6 +220,10 @@ module.exports = {
             text: "5.10解构赋值",
             link: "/数据类型/5_10Destructuring.md",
           },
+          {
+            text: "5.11日期和时间",
+            link: "/数据类型/5_11Date.md",
+          },
         ],
       },
     ],
