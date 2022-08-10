@@ -224,6 +224,10 @@ module.exports = {
             text: "5.11日期和时间",
             link: "/数据类型/5_11Date.md",
           },
+          {
+            text: "5.12JSON方法,toJSON",
+            link: "/数据类型/5_12JSON.md",
+          },
         ],
       },
     ],
