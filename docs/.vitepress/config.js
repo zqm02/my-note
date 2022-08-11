@@ -59,6 +59,11 @@ module.exports = {
         link: "/数据类型/5_1PrimitivetypeMethods.html",
         activeMatch: "/数据类型/",
       },
+      {
+        text: "函数进阶内容",
+        link: "/函数进阶内容/6_1recursion.html",
+        activeMatch: "/函数进阶内容/",
+      },
     ],
     // socialLinks: [
     //   { icon: "github", link: "https://github.com/cll123456/common-study" },
@@ -227,6 +232,16 @@ module.exports = {
           {
             text: "5.12JSON方法,toJSON",
             link: "/数据类型/5_12JSON.md",
+          },
+        ],
+      },
+      {
+        text: "函数进阶内容",
+        collapsible: true,
+        items: [
+          {
+            text: "6.1递归和堆栈",
+            link: "/函数进阶内容/6_1recursion.md",
           },
         ],
       },
