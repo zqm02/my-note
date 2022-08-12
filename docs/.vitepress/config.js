@@ -243,6 +243,10 @@ module.exports = {
             text: "6.1递归和堆栈",
             link: "/函数进阶内容/6_1recursion.md",
           },
+          {
+            text: "6.2Rest参数与Spread语法",
+            link: "/函数进阶内容/6_2Rest.md",
+          },
         ],
       },
     ],
