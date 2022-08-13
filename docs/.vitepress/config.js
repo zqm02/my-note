@@ -247,6 +247,10 @@ module.exports = {
             text: "6.2Rest参数与Spread语法",
             link: "/函数进阶内容/6_2Rest.md",
           },
+          {
+            text: "6.3变量作用域，闭包",
+            link: "/函数进阶内容/6_3closure.md",
+          },
         ],
       },
     ],
