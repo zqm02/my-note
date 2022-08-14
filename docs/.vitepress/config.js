@@ -251,6 +251,10 @@ module.exports = {
             text: "6.3变量作用域，闭包",
             link: "/函数进阶内容/6_3closure.md",
           },
+          {
+            text: "6.4老旧的“var”",
+            link: "/函数进阶内容/6_4var.md",
+          },
         ],
       },
     ],
