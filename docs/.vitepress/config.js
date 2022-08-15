@@ -255,6 +255,10 @@ module.exports = {
             text: "6.4老旧的“var”",
             link: "/函数进阶内容/6_4var.md",
           },
+          {
+            text: "6.5全局对象",
+            link: "/函数进阶内容/6_5globalObject.md",
+          },
         ],
       },
     ],
