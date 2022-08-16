@@ -259,6 +259,10 @@ module.exports = {
             text: "6.5全局对象",
             link: "/函数进阶内容/6_5globalObject.md",
           },
+          {
+            text: "6.6函数对象,NFE",
+            link: "/函数进阶内容/6_6FuncObj.md",
+          },
         ],
       },
     ],
