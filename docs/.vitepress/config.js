@@ -263,6 +263,10 @@ module.exports = {
             text: "6.6函数对象,NFE",
             link: "/函数进阶内容/6_6FuncObj.md",
           },
+          {
+            text: "6.7“new Function”语法",
+            link: "/函数进阶内容/6_7NewFunc.md",
+          },
         ],
       },
     ],
