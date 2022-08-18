@@ -267,6 +267,10 @@ module.exports = {
             text: "6.7“new Function”语法",
             link: "/函数进阶内容/6_7NewFunc.md",
           },
+          {
+            text: "6.8调度:setTimeout和setInterval",
+            link: "/函数进阶内容/6_8dispatch.md",
+          },
         ],
       },
     ],
