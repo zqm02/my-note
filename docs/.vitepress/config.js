@@ -271,6 +271,10 @@ module.exports = {
             text: "6.8调度:setTimeout和setInterval",
             link: "/函数进阶内容/6_8dispatch.md",
           },
+          {
+            text: "6.9装饰器模式和转发,call/apply",
+            link: "6_9Decorator.md",
+          },
         ],
       },
     ],
