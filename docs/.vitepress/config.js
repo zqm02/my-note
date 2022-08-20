@@ -273,7 +273,11 @@ module.exports = {
           },
           {
             text: "6.9装饰器模式和转发,call/apply",
-            link: "6_9Decorator.md",
+            link: "/函数进阶内容/6_9Decorator.md",
+          },
+          {
+            text: "6.10函数绑定",
+            link: "/函数进阶内容/6_10FuncBind.md",
           },
         ],
       },
