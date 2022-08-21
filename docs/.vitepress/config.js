@@ -279,6 +279,10 @@ module.exports = {
             text: "6.10函数绑定",
             link: "/函数进阶内容/6_10FuncBind.md",
           },
+          {
+            text: "6.11深入理解箭头函数",
+            link: "/函数进阶内容/6_11ArrowFunction.md",
+          },
         ],
       },
     ],
