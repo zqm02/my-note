@@ -64,6 +64,11 @@ module.exports = {
         link: "/函数进阶内容/6_1recursion.html",
         activeMatch: "/函数进阶内容/",
       },
+      {
+        text: "对象属性配置",
+        link: "/对象属性配置/7_1AttributeTag.html",
+        activeMatch: "/对象属性配置/",
+      },
     ],
     // socialLinks: [
     //   { icon: "github", link: "https://github.com/cll123456/common-study" },
@@ -282,6 +287,16 @@ module.exports = {
           {
             text: "6.11深入理解箭头函数",
             link: "/函数进阶内容/6_11ArrowFunction.md",
+          },
+        ],
+      },
+      {
+        text: "对象属性配置",
+        collapsible: true,
+        items: [
+          {
+            text: "属性标志和属性描述符",
+            link: "/对象属性配置/7_1AttributeTag.md",
           },
         ],
       },
