@@ -298,6 +298,10 @@ module.exports = {
             text: "属性标志和属性描述符",
             link: "/对象属性配置/7_1AttributeTag.md",
           },
+          {
+            text: "属性的getter和setter",
+            link: "/对象属性配置/7_2getter.md",
+          },
         ],
       },
     ],
