@@ -69,6 +69,11 @@ module.exports = {
         link: "/对象属性配置/7_1AttributeTag.html",
         activeMatch: "/对象属性配置/",
       },
+      {
+        text: "原型，继承",
+        link: "/原型，继承/8_1prototypal_inheritance.html",
+        activeMatch: "原型，继承",
+      },
     ],
     // socialLinks: [
     //   { icon: "github", link: "https://github.com/cll123456/common-study" },
@@ -295,12 +300,22 @@ module.exports = {
         collapsible: true,
         items: [
           {
-            text: "属性标志和属性描述符",
+            text: "7.1属性标志和属性描述符",
             link: "/对象属性配置/7_1AttributeTag.md",
           },
           {
-            text: "属性的getter和setter",
+            text: "7.2属性的getter和setter",
             link: "/对象属性配置/7_2getter.md",
+          },
+        ],
+      },
+      {
+        text: "原型,继承",
+        collapsible: true,
+        items: [
+          {
+            text: "8.1原型继承",
+            link: "/原型，继承/8_1prototypal_inheritance.md",
           },
         ],
       },
