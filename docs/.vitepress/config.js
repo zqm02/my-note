@@ -321,6 +321,10 @@ module.exports = {
             text: "8.2F.prototype",
             link: "/原型，继承/8_2Fprototype.md",
           },
+          {
+            text: "8.3原生的原型",
+            link: "/原型，继承/8_3ObjectPrototype.md",
+          },
         ],
       },
     ],
