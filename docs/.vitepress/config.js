@@ -325,6 +325,10 @@ module.exports = {
             text: "8.3原生的原型",
             link: "/原型，继承/8_3ObjectPrototype.md",
           },
+          {
+            text: "8.4原型方法,没有_proto_的对象",
+            link: "/原型，继承/8_4Prototypemethod.md",
+          },
         ],
       },
     ],
