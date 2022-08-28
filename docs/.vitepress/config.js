@@ -74,6 +74,11 @@ module.exports = {
         link: "/原型，继承/8_1prototypal_inheritance.html",
         activeMatch: "原型，继承",
       },
+      {
+        text: "类",
+        link: "/类/9_1Class.html",
+        activeMatch: "类",
+      },
     ],
     // socialLinks: [
     //   { icon: "github", link: "https://github.com/cll123456/common-study" },
@@ -328,6 +333,16 @@ module.exports = {
           {
             text: "8.4原型方法,没有_proto_的对象",
             link: "/原型，继承/8_4Prototypemethod.md",
+          },
+        ],
+      },
+      {
+        text: "类",
+        collapsible: true,
+        items: [
+          {
+            text: "9.1Class基本语法",
+            link: "/类/9_1Class.md",
           },
         ],
       },
