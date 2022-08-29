@@ -344,6 +344,10 @@ module.exports = {
             text: "9.1Class基本语法",
             link: "/类/9_1Class.md",
           },
+          {
+            text: "类继承",
+            link: "/类/9_2ClassInheritance.md",
+          },
         ],
       },
     ],
