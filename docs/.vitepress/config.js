@@ -345,8 +345,16 @@ module.exports = {
             link: "/类/9_1Class.md",
           },
           {
-            text: "类继承",
+            text: "9.2类继承",
             link: "/类/9_2ClassInheritance.md",
+          },
+          {
+            text: "9.3静态属性和静态方法",
+            link: "/类/9_3StaticAttribute.md",
+          },
+          {
+            text: "9.4私有的和受保护的属性和方法",
+            link: "/类/9_4privateProperty.md",
           },
         ],
       },
