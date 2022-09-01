@@ -356,6 +356,10 @@ module.exports = {
             text: "9.4私有的和受保护的属性和方法",
             link: "/类/9_4privateProperty.md",
           },
+          {
+            text: "9.5扩展内建类",
+            link: "/类/9_5ExtendsClass.md",
+          },
         ],
       },
     ],
