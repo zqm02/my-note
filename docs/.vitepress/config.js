@@ -360,6 +360,10 @@ module.exports = {
             text: "9.5扩展内建类",
             link: "/类/9_5ExtendsClass.md",
           },
+          {
+            text: "9.6类检查",
+            link: "/类/9_6Instanceof.md",
+          },
         ],
       },
     ],
