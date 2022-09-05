@@ -79,6 +79,11 @@ module.exports = {
         link: "/类/9_1Class.html",
         activeMatch: "类",
       },
+      {
+        text: "错误处理",
+        link: "/错误处理/10_1ErrorHandling.html",
+        activeMatch: "错误处理",
+      },
     ],
     // socialLinks: [
     //   { icon: "github", link: "https://github.com/cll123456/common-study" },
@@ -363,6 +368,24 @@ module.exports = {
           {
             text: "9.6类检查",
             link: "/类/9_6Instanceof.md",
+          },
+          {
+            text: "9.7Mixin模式",
+            link: "/类/9_7Mixin.md",
+          },
+        ],
+      },
+      {
+        text: "错误处理",
+        collapsible: true,
+        items: [
+          {
+            text: "10.1错误处理,try..catch",
+            link: "/错误处理/10_1ErrorHandling.md",
+          },
+          {
+            text: "10.2自定义Error,扩展Error",
+            link: "/错误处理/10_2CustomError.md",
           },
         ],
       },
