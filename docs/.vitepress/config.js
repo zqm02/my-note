@@ -84,6 +84,11 @@ module.exports = {
         link: "/错误处理/10_1ErrorHandling.html",
         activeMatch: "错误处理",
       },
+      {
+        text: "Promise,async/await",
+        link: "/Promise/11_1CallBack.html",
+        activeMatch: "Promise",
+      },
     ],
     // socialLinks: [
     //   { icon: "github", link: "https://github.com/cll123456/common-study" },
@@ -386,6 +391,16 @@ module.exports = {
           {
             text: "10.2自定义Error,扩展Error",
             link: "/错误处理/10_2CustomError.md",
+          },
+        ],
+      },
+      {
+        text: "Promise,async/await",
+        collapsible: true,
+        items: [
+          {
+            text: "11.1简介:回调",
+            link: "/Promise/11_1CallBack.md",
           },
         ],
       },
