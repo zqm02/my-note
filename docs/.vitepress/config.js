@@ -402,6 +402,10 @@ module.exports = {
             text: "11.1简介:回调",
             link: "/Promise/11_1CallBack.md",
           },
+          {
+            text: "11.2Promise",
+            link: "/Promise/11_2Promise.md",
+          },
         ],
       },
     ],
