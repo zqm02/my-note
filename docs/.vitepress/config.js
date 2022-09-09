@@ -406,6 +406,10 @@ module.exports = {
             text: "11.2Promise",
             link: "/Promise/11_2Promise.md",
           },
+          {
+            text: "11.3Promise链",
+            link: "/Promise/11_3PromiseChain.md",
+          },
         ],
       },
     ],
