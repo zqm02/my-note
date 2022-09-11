@@ -410,6 +410,10 @@ module.exports = {
             text: "11.3Promise链",
             link: "/Promise/11_3PromiseChain.md",
           },
+          {
+            text: "11.4使用promise进行错误处理",
+            link: "/Promise/11_4ErrorHanding.md",
+          },
         ],
       },
     ],
