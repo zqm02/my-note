@@ -412,7 +412,11 @@ module.exports = {
           },
           {
             text: "11.4使用promise进行错误处理",
-            link: "/Promise/11_4ErrorHanding.md",
+            link: "/Promise/11_4ErrorHandling.md",
+          },
+          {
+            text: "11.5Promise API",
+            link: "/Promise/11_5API.md",
           },
         ],
       },
