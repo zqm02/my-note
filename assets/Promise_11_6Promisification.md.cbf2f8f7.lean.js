@@ -1,1 +1,0 @@
-import{_ as s,c as n,o as a,a as p}from"./app.c6effe81.js";const m=JSON.parse('{"title":"Promisification","description":"","frontmatter":{},"headers":[],"relativePath":"Promise/11_6Promisification.md"}'),l={name:"Promise/11_6Promisification.md"},o=p("",28),e=[o];function r(c,t,y,i,B,A){return a(),n("div",null,e)}var E=s(l,[["render",r]]);export{m as __pageData,E as default};
