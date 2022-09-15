@@ -1,0 +1,1 @@
+import{_ as e,c as r,o as t}from"./app.c6effe81.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"Generator/12_1Generator.md"}'),a={name:"Generator/12_1Generator.md"};function o(n,s,_,c,p,d){return t(),r("div")}var f=e(a,[["render",o]]);export{m as __pageData,f as default};
