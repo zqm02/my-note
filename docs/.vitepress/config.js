@@ -418,6 +418,14 @@ module.exports = {
             text: "11.5Promise API",
             link: "/Promise/11_5API.md",
           },
+          {
+            text: "11.6Promisification",
+            link: "/Promise/11_6Promisification.md",
+          },
+          {
+            text: "11.7Microtask",
+            link: "/Promise/11_7Microtask.md",
+          },
         ],
       },
     ],
