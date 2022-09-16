@@ -426,6 +426,10 @@ module.exports = {
             text: "11.7Microtask",
             link: "/Promise/11_7Microtask.md",
           },
+          {
+            text: "11.8asyns/await",
+            link: "/Promise/11_8async.md",
+          },
         ],
       },
     ],
