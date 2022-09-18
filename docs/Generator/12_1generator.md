@@ -394,8 +394,81 @@ alert(generator.next(9).done); // true
 要向`yield`传递一个 error，我们应该调用
 `generator.throw(err)`。在这种情况下，`err`将被抛到对应的`yield`所在的那一行。
 
-例如，`2 + 2 = ?`的`yield`导致了一个 error:
+例如，`"2 + 2 = ?"`的`yield`导致了一个 error:
 
 ```js
+function* gen() {
+  try {
+    let result = yield "2 + 2 = ?"; //(1)
 
+    alert(
+      "The execution does not reach here,because the exception is throw above"
+    );
+  } catch (e) {
+    alert(e); //显示这个error
+  }
+}
+
+let generator = gen();
+
+let question = generator.next().value;
+
+generator.throw(new Error("The answer is not found in my database")); //(2)
 ```
+
+在`(2)`行引入到 generator 的 error 导致了在`(1)`行中的`yield`出现了一个异常。在上面这歌例子中，
+`try..catch`捕获并显示了这个 error。
+
+如果我们没有捕获它，那么就会像其它的异常一样，它将从 generator"掉出"到调用代码中。
+
+调用代码的当前行是`generator.throw`所在的那一行，标记为`(2)`。所以我们可以在这里捕获它，就像这样:
+
+```js
+function* generate() {
+  let result = yield "2 + 2 = ?"; //这行出现 error
+}
+
+let generator = generate();
+
+let question = generator.next().value;
+
+try {
+  generator.throw(new Error("The answer is not found in my database"));
+} catch (e) {
+  alert(e); //显示这个 error
+}
+```
+
+如果我们没有在那里捕获这个 error，那么，通常，它会掉入外部调用代码(如果有)，如果外部也没有被捕获，则会杀死脚本。
+
+## generator.return
+
+`generator.return(value)`完成 generator 的执行并返回给定的`value`。
+
+```js
+function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const g = gen();
+
+g.next(); //{value:1,done:false}
+g.return("foo"); //{value:"foo",done:true}
+g.next(); //{value:undefined,done:true}
+```
+
+如果我们在已完成的 generator 上再次使用`generator.return()`，它将再次返回该值([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/return))。
+
+通常我们不使用它，因为大多数时候我们想要获取所有的返回值，但是当我们想要在特定条件下停止 generator 时它会很有用。
+
+## 总结
+
+- generator 是通过 generator 函数`function* f(..) {...}`创建的。
+- 在 generator(仅在)内部，存在`yield`操作。
+- 外部代码和 generator 可能会通过`next/yield`调用交换结果。
+
+在现代 JavaScript 中，generator 很少被使用。但有时它们会派上用场，因为函数在执行过程中与调用代码交换数据的能力是非常独特的。而且，它们非常适合创建可迭代对象。
+
+在 Web 编程中，我们经常使用数据流，因此这是另一个非常重要的使用场景。
