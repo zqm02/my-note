@@ -12,7 +12,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "react-code-view": "^2.2.1",
     "vitepress": "^1.0.0-alpha.4",
     "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "html-loader": "^4.1.0",
+    "markdown-loader": "^8.0.0",
+    "react-markdown-reader": "^1.2.0"
   }
 }

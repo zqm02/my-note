@@ -27,8 +27,3 @@ const markdownRenderer = require("react-markdown-reader").renderer;
     },
   ];
 }
-
-<script
-  type="text/javascript"
-  src="//cdn.staticfile.org/babel-standalone/6.24.0/babel.min.js"
-></script>;
