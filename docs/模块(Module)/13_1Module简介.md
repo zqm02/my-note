@@ -331,7 +331,7 @@ sayHi(); //Ready to serve, Pete!
      <script type="module" src="my.js"></script>
    ```
 
-2. 从另一个源(例如另一个网站)获取的外部脚本需要[CORS]()header,如果我们在[Fetch:跨源请求]()一章中所讲的那样。换句话说，如果一个模块脚本是从另一个源获取的，则远程服务器必须提供表示允许获取的 header`Access-Control-Allow-Origin`。
+2. 从另一个源(例如另一个网站)获取的外部脚本需要[CORS](https://developer.mozilla.org/zh/docs/Web/HTTP/CORS)header,如果我们在[Fetch:跨源请求](https://zh.javascript.info/fetch-crossorigin)一章中所讲的那样。换句话说，如果一个模块脚本是从另一个源获取的，则远程服务器必须提供表示允许获取的 header`Access-Control-Allow-Origin`。
    ```
     <!--another-site.com 必须提供 Access-Control-Allow-Origin-->
     <!--否则，脚本将无法执行-->
@@ -382,7 +382,7 @@ CSS/HTML 模块等。
    - 删除无法访问的代码。
    - 删除未使用的导出("tree-shaking")。
    - 删除特定于开发的像`console`和`debugger`这样的语句。
-   - 可以使用[Babel]()将前沿的现代的 JavaScript 语法转换为具有类似的旧的 JavaScript 语法。
+   - 可以使用[Babel](https://babeljs.io/)将前沿的现代的 JavaScript 语法转换为具有类似的旧的 JavaScript 语法。
    - 压缩生成的文件(删除空格，用短的名字替换变量等)
 
 如果我们使用打包工具，那么脚本会被打包进一个单一文件(或者几个文件)，在这些脚本中的`import/export`语句会被替换成特殊的打包函数(bundler function)。因此，最终打包好的脚本不包含任何`import/export`，它也不需要`type="module"`，我们可以将其放入常规的<script>:
@@ -410,4 +410,4 @@ CSS/HTML 模块等。
 
 当我们使用模块时，每个模块都会实现特定功能并将其导出。然后我们使用`import`将其直接导入到需要的地方即可。浏览器会自动加载并解析脚本。
 
-在生产环境中，出于性能和其他原因，开发者经常使用诸如[Webpack]()之类的打包工具将模块打包到一起。
+在生产环境中，出于性能和其他原因，开发者经常使用诸如[Webpack](https://webpack.js.org/)之类的打包工具将模块打包到一起。
