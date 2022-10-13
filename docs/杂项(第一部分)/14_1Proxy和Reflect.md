@@ -439,3 +439,356 @@ user = {
 > 现代 JavaScript 引擎原生支持 class 中的私有属性，这些私有属性以`#`为前缀。它们在[私有的和受保护的属性和方法](https://zh.javascript.info/private-protected-properties-methods)一章中有详细描述。无需代理(proxy)。
 >
 > 但是，此类属性有其自身的问题。特别是，它们是不可继承的。
+
+## 带有"has"捕捉器的"in range"
+
+让我们来看更多的示例。
+
+我们有一个 range 对象:
+
+```js
+let range = {
+  start: 1,
+  end: 10,
+};
+```
+
+我们想使用`in`操作符来检查一个数字是否在`range`范围内。
+
+`has`捕捉器会拦截`in`调用。
+
+`has(target,property)`
+
+- `target`--是目标对象，被作为第一个参数传递给`new Proxy`
+- `property`--属性名称。
+
+示例如下
+
+```js
+let range = {
+  start: 1,
+  end: 10,
+};
+
+range = new Proxy(range, {
+  has(target, prop) {
+    return prop >= target.start && prop <= target.end;
+  },
+});
+
+alert(5 in range); //true
+alert(50 in range); //false
+```
+
+漂亮的语法糖，不是吗？而且实现起来非常简单。
+
+## 包装函数:"apply"
+
+我们也可以将代理(proxy)包装在函数周围。
+
+`apply(target,thisArg,args)`捕捉器能使代理以函数的方式被调用:
+
+- `target`是目标对象(在 JavaScript 中，函数就是一个对象)，
+- `thisArg`是`this`的值，
+- `args`是参数列表
+
+例如，让我们回忆以下我们在[装饰器模式和转发，call/apply](https://zh.javascript.info/call-apply-decorators)一章中所讲的`delay(f,ms)`装饰器。
+
+在该章中，我们没有用 proxy 来实现它。调用`delay(f,ms)`会返回一个函数，该函数会在`ms`毫秒后把所有调用转发给`f`。
+
+这是以前的基于函数实现:
+
+```js
+function delay(f, me) {
+  //返回一个包装器(wrapper)，该包装器将在时间到了的时候将调用转发给函数 f
+  return function () {
+    //(*)
+    setTimeout(() => f.apply(this, arguments), ms);
+  };
+}
+
+function sayHi(user) {
+  alert(`Hello,${user}!`);
+}
+
+//在进行这个包装后，sayHi 函数会被延迟 3 秒后被调用
+sayHi = delay(sayHi, 3000);
+
+sayHi("John"); //Hello,John! (after 3 seconds)
+```
+
+正如我们所看到的那样，大多数情况下它都是可行的。包装函数`(*)`在到达延迟的时间后执行调用。
+
+但是包装函数不会转发属性读取/写入操作或者任何其他操作。进行包包装后，就失去了对原始函数的访问，例如`name`,`length`和其他属性:
+
+```js
+function delay(f, ms) {
+  return function () {
+    setTimeout(() => f.apply(this, arguments), ms);
+  };
+}
+
+function sayHi(user) {
+  alert(`Hello,${user}!`);
+}
+
+alert(sayHi.length); //1 (函数的 length 是函数声明中的参数个数)
+
+sayHi = delay(sayHi, 3000);
+
+alert(sayHi.length); // 0 (在包装器声明中，参数个数为0)
+```
+
+`proxy`的功能要强大得多，因为它可以将所有东西转发到目标对象。
+
+让我们使用`proxy`来替换掉包装函数:
+
+```js
+function delay(f, ms) {
+  return new Proxy(f, {
+    apply(target, thisArg, args) {
+      setTimeout(() => target.apply(thisArg, args), ms);
+    },
+  });
+}
+
+function sayHi(user) {
+  alert(`Hello,${user}!`);
+}
+
+sayHi = delay(sayHi, 3000);
+
+alert(sayHi.length); //1 (*) proxy 将"获取 length"的操作转发给目标对象
+
+sayHi("John"); //Hello,John! (3秒后)
+```
+
+结果是相同的，但现在不仅仅调用，而且代理上的所有操作都能被转发到原始函数。所以在`(*)`行包装后的`sayHi.length`会返回正确的结果。
+
+我们得到了一个"更丰富"的包装器。
+
+还存在其他捕捉器:完整列表在本文的开头。它们的使用模式与上述类似。
+
+## Reflect
+
+`Reflect`是一个内建对象，可简化`Proxy`的创建。
+
+前面所讲过的内部方法，例如`[[Get]]`和`[[Set]]`等，都只是规范性的，不能直接调用。
+
+`Reflect`对象使调用这些内部方法成为了可能。它的方法是内部方法的最小包装。
+
+以下是执行相同操作和`Reflect`调用的示例:
+|**操作**|`Reflect`调用|内部方法|
+|:---:|:---:|:---:|
+|obj[prop]|Reflect.get(obj,porp)|[[Get]]|
+|obj[prop] = value|Reflect.set(obj,porp,value)|[[Set]]|
+|delete obj[prop]|Reflect.deleteProperty(obj,prop)|[[Delete]]|
+|new F(value)|Reflect.construct(F,value)|[[Construct]]|
+
+例如:
+
+```js
+let user = {};
+
+Reflect.set(user, "name", "John");
+
+alert(user.name); // John
+```
+
+尤其是，`Reflect`允许我们将操作符(`new`,`delete`,...)作为函数(`Reflect`,`construct`,`Reflect.deleteProperty`,...)执行调用。这是一个有趣的功能，但是这里还有一点很重要。
+
+**对于每个可被`Proxy`捕获的内部方法，在`Reflect`中都有一个对应的方法，其名称和参数与`Proxy`捕捉器相同。**
+
+所以，我们可以使用`Reflect`来将操作转发给原始对象。
+
+在下面这个示例中，捕捉器`get`和`set`均透明地(好像它们都不存在一样)将读取/写入操作转发到对象，并显示一条消息:
+
+```js
+let user = {
+  name: "John",
+};
+
+user = new Proxy(user, {
+  get(target, prop, receiver) {
+    return Reflect.get(target, prop, receiver); // (1)
+  },
+  set(target, prop, val, receiver) {
+    alert(`SET ${prop}=${val}`);
+    return Reflect.set(target, prop, val, receiver); //(2)
+  },
+});
+
+let name = user.name; //显示 "GET name"
+user.name = "Pete"; // "SET name=Pete"
+```
+
+这里:
+
+- `Reflect.get`读取一个对象属性。
+- `Reflect.set`写入一个对象属性，如果写入成功则返回`true`，否则返回`false`。
+
+这样，一切都很简单:如果一个捕捉器想要将调用转发给对象，则只需使用相同的参数调用`Reflect.<method>`就足够了。
+
+在大多数情况下，我们可以不使用`Reflect`完成相同的事情，例如，用于读取属性的`Reflect.get(target,prop,receiver)`可以被替换为`target[prop]`。尽管有一些细微的差别。
+
+## 代理一个 getter
+
+让我们看一个示例，来说明为什么`Reflect.get`更好。此外，我们还将看到为什么`get/set`有第三个参数`receiver`，而且我们之前从来没有使用过它。
+
+我们有一个带有`_name`属性和 getter 的对象`user`。
+
+这是对`user`对象的一个代理:
+
+```js
+let user = {
+  _name: "Guest",
+  get name() {
+    return this._name;
+  },
+};
+
+let userProxy = new Proxy(user, {
+  get(target, prop, receiver) {
+    return target[prop];
+  },
+});
+
+alert(userProxy.name); //Guest
+```
+
+其`get`捕捉器在这里是"透明的"，它返回原来的属性，不会做任何其他的事。这对于我们的示例而言就足够了。
+
+一切似乎都很好。但是让我们将示例变得稍微复杂一点。
+
+另一个对象`admin`从`user`继承后，我们可以观察到错误的行为:
+
+```js
+let user = {
+  _name: "Guest",
+  get name() {
+    return this._name;
+  },
+};
+
+let userProxy = new Proxy(user, {
+  get(target, prop, receiver) {
+    return target[prop]; // (*) target = user
+  },
+});
+
+let admin = {
+  _proto_: userProxy,
+  _name: "Admin",
+};
+
+//期望输出:Admin
+alert(admin.name); //输出:Guest (?!?)
+```
+
+读取`admin.name`应该返回`"Admin"`，而不是`"Guest"`!
+
+发生了什么？或许我们在继承方面做错了什么？
+
+但是，如果我们移除代理，那么一切都会按预期进行。
+
+问题实际上出在代理中，在`(*)`行。
+
+1. 当我们读取`admin.name`时，由于`admin`对象自身没有对应的属性，搜索将转到其原型。
+2. 原型是`userProxy`。
+3. 从代理读取`name`属性时，`get`捕捉器会被触发，并从原始对象返回`target[prop]`属性，在`(*)`行。
+
+   当调用`target[prop]`时，若`prop`是一个 getter，它将在`this=target`上下文中运行其代码。因此，结果是来自原始对象`target`的`this._name`，即来自`user`。
+
+为了解决这种情况，我们需要`get`捕捉器的第三个参数`receiver`。它保证将正确的`this`传递给 getter。在我们的例子中是`admin`。
+
+如何把上下文传递给 getter？对于一个常规函数，我们可以使用`call/apply`，但这是一个 getter，它不能"被调用",只能被访问。
+
+`Reflect.get`可以做到。如果我们使用它，一切都会正常运行。
+
+这是更正后的变体:
+
+```js
+let user = {
+  _name: "Guest",
+  get name() {
+    return this._name;
+  },
+};
+
+let userProxy = new Proxy(user, {
+  get(target, prop, receiver) {
+    return Reflect.get(target, prop, receiver); // (*)
+  },
+});
+
+let admin = {
+  _proto_: userProxy,
+  _name: "Admin",
+};
+
+alert(admin.name); //Admin
+```
+
+现在`receiver`保留了对正确`this`的引用(即`admin`)，该引用是在`(*)`行中被通过`Reflect.get`传递给 getter 的。
+
+我们可以把捕捉器重写得更短:
+
+```js
+  get(target,prop,receiver) {
+    return Reflect.get(...arguments);
+  }
+```
+
+`Reflect`调用的命名与捕捉器的命名完全相同，并且接受相同的参数。它们是以这种方式专门设计的。
+
+因此，`return Reflect...`提供了一个安全的方式，可以轻松地转发操作，并确保了我们不会忘记与此相关的任何内容。
+
+## Proxy 的局限性
+
+代理提供了一种独特的方法，可以在最底层更改或调整现有对象的行为。但是，它并不完美。有局限性。
+
+### 内建对象: 内部插槽(Internal slot)
+
+许多内建对象，例如`Map`、`Date`、`Promise`等都使用了所谓的"内部插槽"。
+
+它们类似于属性，但仅限于内部使用，仅用于规范目的。例如,`Map`将项目(item)存储在`[[MapData]]`中。内建方法可以直接访问它们，而不通过`[[Get]]/[[Set]]`内部方法。所以`Proxy`无法拦截它们。
+
+为什么要在意这些呢？毕竟它们是内部的！
+
+好吧，问题在这。在类似这样的内建对象被代理后，代理对象没有这些内部插槽，因此内建方法将会失败。
+
+例如:
+
+```js
+let map = new Map();
+
+let proxy = new Proxy(map, {});
+
+proxy.set("test", 1); //Error
+```
+
+在内部，一个`Map`将所有数据存储在其`[[MapData]]`内部插槽中。代理对象没有这样的插槽。[内建方法](https://tc39.es/ecma262/#sec-map.prototype.set)`Map.prototype.set`方法试图访问内部属性`this.[[MapData]]`，但由于`this=proxy`，在`proxy`中无法找到它，只能失败。
+
+幸运的是，这有一种解决方法:
+
+```js
+let map = new Map();
+
+let proxy = new Proxy(map, {
+  get(target, prop, receiver) {
+    let value = Reflect.get(...arguments);
+    return typeof value == "function" ? value.bind(target) : value;
+  },
+});
+
+proxy.set("test", 1);
+alert(proxy, get("test")); // 1 (工作了！)
+```
+
+现在它正常工作了，因为`get`捕捉器将函数属性(例如`map.set`)绑定了目标对象(`map`)本身。
+
+与前面的示例不同，`proxy.set(...)`内部`this`的值并不是`proxy`，而是原始的`map`。因此，当`set`捕捉器的内部实现尝试访问`this.[[MapData]]`内部插槽时，它会成功。
+
+> **`Array`没有内部插槽**
+> 一个值得注意的例外:内建`Array`没有使用内部插槽。那是出于历史原因，因为它出现于很久之前。
+> 所以，代理数组没有这种问题。
