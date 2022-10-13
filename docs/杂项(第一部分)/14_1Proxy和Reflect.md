@@ -792,3 +792,192 @@ alert(proxy, get("test")); // 1 (工作了！)
 > **`Array`没有内部插槽**
 > 一个值得注意的例外:内建`Array`没有使用内部插槽。那是出于历史原因，因为它出现于很久之前。
 > 所以，代理数组没有这种问题。
+
+### 私有字段
+
+类的私有字段也会发生类似地情况。
+
+例如,`getName()`方法访问私有的`#name`属性，并在代理后中断:
+
+```js
+class User {
+  #name = "Guest";
+
+  getName() {
+    return this.#name;
+  }
+}
+
+let user = new User();
+
+user = new User();
+
+alert(user.getName()); //Error
+```
+
+原因是私有字段是通过内部插槽实现的。JavaScript 在访问它们时不使用`[[Get]]/[[Set]]`。
+
+在调用`getName()`时，`this`的值是代理后的`user`，它没有带有私有字段的插槽。
+
+再次，带有`bind`方法的解决方案使它恢复正常:
+
+```js
+  class User {
+    #name = "Guest';
+
+    getName() {
+      return this.#name;
+    }
+  }
+
+  let user = new User();
+
+  user = new Proxy(user, {
+    get(target,prop,receiver) {
+      let value = Reflect.get(...arguments);
+      return typeof value == 'function' ? value.bind(target) : value;
+    }
+  });
+
+  alert(user.getName());    //Guest
+```
+
+如前所述，该解决方案也有缺点:它将原始对象暴露给该方法，可能使其进一步传递并破坏其他代理功能。
+
+### Proxy! = target
+
+代理和原始对象是不同的对象。这很自然，对吧？
+
+所以，如果我们使用原始对象作为键，然后对其进行代理，之后却无法找到代理了:
+
+```js
+let allUsers = new Set();
+
+class User {
+  constructor(name) {
+    this.name = name;
+    allUsers.add(this);
+  }
+}
+
+let user = new User("John");
+
+alert(allUsers.has(user)); //true
+
+user = new Proxy(user, {});
+
+alert(allUsers.has(user)); //false
+```
+
+如我们所见，进行代理后，我们在`allUsers`中找不到`user`，因为代理是一个不同的对象。
+
+> **Proxy 无法拦截严格相等性检查`===`**
+> Proxy 可以拦截许多操作符，例如`new`(使用`construct`),`in`(使用`has`),`delete`(使用`deleteProperty`)等。
+>
+> 但是没有办法拦截对于对象的严格相等性检查。一个对象只严格相等于其自身，没有其他值。
+>
+> 因此，比较对象是否相等的所有操作和内建类都会区分对象和代理。这里没有透明的替代品。
+
+## 可撤销 Proxy
+
+一个**可撤销**的代理是可以被禁用的代理。
+
+假设我们有一个资源，并且想随时关闭对该资源的访问。
+
+我们可以做的是将它包装成一个可撤销的代理，没有任何捕捉器。这样的代理会将操作转发给对象，并且我们可以随时将其禁用。
+
+语法为:
+
+```js
+let { proxy, revoke } = Proxy.revocable(target, handler);
+```
+
+该调用返回一个带有`proxy`和`revoke`函数的对象将其禁用。
+
+这是一个例子:
+
+```js
+let object = {
+  data: "Valuable data",
+};
+
+let { proxy, revoke } = Proxy.revocable(target, {});
+
+//将proxy 传递到其他某处，而不是对象...
+alert(proxy.data); //Valuable data
+
+//稍后，在我们的代码中
+revoke();
+
+//proxy 不再工作(revoked)
+alert(proxy.data); //Error
+```
+
+对`revoke()`的调用会从代理中删除对目标对象的所有内部引用，因此它们之间再无连接。
+
+最初，`revoke`与`proxy`是分开的，因此我们可以传递`proxy`，同时将`revoke`留在当前范围内。
+
+我们也可以通过设置`proxy.revoke = revoke`来将`revoke`绑定到`proxy`。
+
+另一种选择是创建一个`WeakMap`，其中`proxy`作为键，相应的`revoke`作为值，这样可以轻松找到`proxy`所对应的`revoke`:
+
+```js
+let revokes = new WeakMap();
+
+let object = {
+  data: "Valuable data",
+};
+
+let { proxy, revoke } = Proxy.revocable(object, {});
+
+revokes.set(proxy, revoke);
+
+//...我们代码中的其他位置...
+revoke = revokes.get(proxy);
+revokeo();
+
+alert(proxy.data); //Error (revoked)
+```
+
+此处我们使用`WeakMap`而不是`Map`，因为它不会阻止垃圾回收。如果一个代理对象变得"不可访问"(例如，没有变量再应用它)，则`WeakMap`允许将其与它的`revoke`一起从内存中清除，因为我们不需要它了。
+
+## 参考资料
+
+- 规范:[Proxy](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots)
+- MDN:[Proxy](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+
+## 总结
+
+`Proxy`是对象的包装器，将代理上的操作转发到对象，并可以选择捕获其中一些操作。
+
+它可以包装任何类型的对象，包括类和函数。
+
+语法为:
+
+```js
+let proxy = new Proxy(target, {
+  /*trap*/
+});
+```
+
+....然后，我们应该在所有地方使用`proxy`而不是`target`。代理没有自己的属性或方法。如果提供了捕捉器(trap),它将捕获操作，否则会将其转发给`target`对象。
+
+我们可以捕获:
+
+- 读取(`get`)，写入(`set`)，删除(`deleteProperty`)属性(甚至是不存在的属性)。
+- 函数调用(`apply`捕捉器)
+- `new`操作(`construct`捕捉器)
+- 许多其他操作
+
+这使我们能够创建"虚拟"属性和方法，实现默认值，可观察对象，函数装饰器等。
+
+我们还可以将对象多次包装在不同的代理中，并用多个各个方面的功能对其进行装饰。
+
+[Reflect]API 旨在补充[Proxy]。对于任意`Proxy`捕捉器，都有一个带有相同参数的`Reflect`调用。我们应该使用它们将调用转发给目标对象。
+
+Proxy 有一些局限性:
+
+- 内建对象具有"内部插槽",对这些对象的访问无法被代理。请参阅上文中的解决方法。
+- 私有类字段也是如此，因为它们也是在内部使用插槽实现的。因此，代理方法的调用必须具有目标对象作为`this`才能访问它们。
+- 对象的严格相等检查`===`无法被拦截。
+- 性能:基准测试(benchmark)取决于引擎，但通常使用最简单的代理访问属性所需的时间也要长几倍。实际上，这仅对某些"瓶颈"对象来说才重要。
