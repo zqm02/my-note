@@ -1,6 +1,6 @@
 # 遍历 DOM
 
-DOM 让我们可以对元素和它们中的内容做任何事，但是首先我们选哟获取到对应的 DOM 对象。
+DOM 让我们可以对元素和它们中的内容做任何事，但是首先我们需要获取到对应的 DOM 对象。
 
 对 DOM 的所有操作都是以`document`对象开始。它是 DOM 的主"入口点"。从它我们可以访问任何节点。
 
@@ -216,3 +216,122 @@ alert(document.body.previousSibling); //HTMLHeadElement
 所以，让我们看看更多只考虑**元素节点**的导航链接
 (navigation link):
 ![pic](../assert/imgs/eachDom2.png)
+
+这些链接和我们上面提到的类似，只是在中间加了`Element`:
+
+- `children`--仅那些作为元素节点的子代的节点。
+- `firstElementChild`，`lastElementChild`--第一个和最后一个子元素。
+- `previousElementSibling`，
+  `nextElementSibling`--兄弟元素。
+- `parentElement`--父元素。
+
+> **为什么是`parentElement`?父节点可以不是一个元素吗？** > `parentElement`属性返回的是"元素类型"的父节点，
+> 而`parentNode`返回的是"任何类型"的父节点。这些属性
+> 通常来说是一样的:它们都是用来获取父节点的。
+>
+> 唯一的例外就是`document.documentElement`:
+>
+> ```js
+> alert(document.documentElement.parentNode); //document
+> alert(document.documentElement.parentElement); //null
+> ```
+>
+> 因为根节点`document.documentElement`
+> (`html`)的父节点是`document`。但`document`不是一个元素节点，所以`parentNode`返回了
+> `document`，但`parentElement`返回的是`null`。
+>
+> 当我们想从任意节点`elem`到`<html>`而不是到
+> `document`时，这个细节可能很有用:
+>
+> ```js
+> while ((elem = elem.parentElement)) {
+>   //向上，直到<html>
+>   alert(elem);
+> }
+> ```
+
+让我们修改上面的一个示例:用`children`来替换`childNodes`。现在它只显示元素:
+
+```
+    <html>
+    <body>
+    <div>Begin</div>
+
+    <ul>
+    <li>Information</li>
+    </ul>
+
+    <div>End</div>
+
+    <script>
+    for (let elem of docuoment.body.children) {
+        alert(elem);  //DIV,UL,DIV,SCRIPT
+    }
+    </script>
+    ....
+    </body>
+    </html>
+```
+
+## 更多链接:表格
+
+到现在，我们已经描述了基本的导航(navigation)属性。
+
+方便起见，某些类型的 DOM 元素可能会提供特定于其类型的其他属性。
+
+表格(Table)是一个很好的例子，它代表了一个特别重要的情况:
+`<table>`元素支持(除了上面给出的，之外)以下属性:
+
+- `table.rows`--`<tr>`元素的集合。
+- `table.caption/tHead/tFoot`--引用元素
+  `<caption>`,`<thead>`,`<tfoot>`。
+- `table.tBodies`--`<tbody>`元素的集合(根据标准还有很多元素，但是这里至少会有一个--即使没有被写在 HTML 源文件中，浏览器也会将其放入 DOM 中)。
+
+`<thead>`,`<tfoot>`,`<tbody>`元素提供了`rows`属性:
+
+- `tbody.rows`--表格内部`<tr>`元素的集合。
+
+`<tr>`:
+
+- `tr.cells`--在给定`<tr>`中的`<td>`和`<th>`单元格的集合。
+- `tr.sectionRowIndex`--给定的`<tr>`在封闭的
+  `<thead>/<tbody>/<tfoot>`中的位置(索引)。
+- `tr.rowIndex`--在整个表格中`<tr>`的编号(包括表格的所有行)。
+
+`<td>`和`<th>`:
+
+- `td.cellIndex`--在封闭的`<tr>`中单元格的编号。
+
+用法示例:
+
+```
+    <table id="table">
+        <tr>
+        <td>one</td><td>two</td>
+        </tr>
+        <tr>
+        <td>three</td><td>four</td>
+        </tr>
+    </table>
+
+    <script>
+        //获取带有"two"的td (第一行，第二列)
+        let td = table.rwos[0].cells[1];
+        td.style.backgroundColor = "red";  //highlight it
+    </script>
+```
+
+规范:[tabular data](https://html.spec.whatwg.org/multipage/tables.html)。
+
+HTML 表单(form)还有其他导航(navigation)属性。稍后当我们开始使用表单(form)时，我们将对其进行研究。
+
+## 总结
+
+给定一个 DOM 节点，我们可以使用导航(navigation)属性访问其直接的邻居。
+
+这些属性主要分为两组:
+
+- 对于所有节点:`paremtnNode`,`childNodes`,`firstChild`,`lastChild`,`previousSibling`,`nextSibling`。
+- 仅对于元素节点:`parentElement`,`children`,`firstElementChild`,`lastElementChild`,`previousElementSibling`,`nextElementSibling`。
+
+某些类型的 DOM 元素，例如 table,提供了用于访问其内容的其他属性和集合。
