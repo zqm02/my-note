@@ -29,16 +29,16 @@ setTimeout(() => (document.body.style.background = ""), 3000); //恢复回去
 
 让我们从下面这个简单的文档(document)开始:
 
-```
-    <!DOCTYPE HTML>
-    <html>
-    <head>
+```html
+<!DOCTYPE html>
+<html>
+  <head>
     <title>About elk</title>
-    </head>
-    <body>
-        The truth about elk.
-    </body>
-    </html>
+  </head>
+  <body>
+    The truth about elk.
+  </body>
+</html>
 ```
 
 DOM 将 HTML 表示为标签的树形结构。它看起来如下所示:
@@ -127,18 +127,18 @@ DOM 将 HTML 表示为标签的树形结构。它看起来如下所示:
 
 例如，注释:
 
-```
-    <!DOCTYPE HTML>
-    <html>
-    <body>
+```html
+<!DOCTYPE html>
+<html>
+  <body>
     THe truth about elk.
     <ol>
-    <li>An elk is a smart</li>
-    <!-- comment -->
-    <li>...and cunning animal!</li>
+      <li>An elk is a smart</li>
+      <!-- comment -->
+      <li>...and cunning animal!</li>
     </ol>
-    </body>
-    </html>
+  </body>
+</html>
 ```
 
 ![pic](../assert/imgs/DOM5.png)

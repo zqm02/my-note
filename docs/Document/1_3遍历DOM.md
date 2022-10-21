@@ -32,22 +32,19 @@ DOM 让我们可以对元素和它们中的内容做任何事，但是首先我�
 >
 > 所有，下面的例子中的第一个`alert`显示`null`:
 >
-> ```
+> ```html
 > <html>
+>   <head>
+>     <script>
+>       alert("From HEAD: " + document.body); //null,这里目前还没有 <body>
+>     </script>
+>   </head>
 >
-> <head>
-> <script>
-> alert("From HEAD: " + document.body);  //null,这里目前还没有 <body>
-> </script>
-> </head>
->
-> <body>
->
-> <script>
->  alert("From BODY: " + document.body);  // HTMLBodyElement,现在存在了
-> </script>
->
-> </body>
+>   <body>
+>     <script>
+>       alert("From BODY: " + document.body); // HTMLBodyElement,现在存在了
+>     </script>
+>   </body>
 > </html>
 > ```
 
@@ -63,19 +60,18 @@ DOM 让我们可以对元素和它们中的内容做任何事，但是首先我�
 
 例如，这里`<body>`有子元素`<div>`和`<ul>`(以及一些空白的文本节点):
 
-```
-    <html>
-    <body>
+```html
+<html>
+  <body>
     <div>Begin</div>
 
     <ul>
-        <li>
+      <li>
         <b>Informtion</b>
-        </li>
+      </li>
     </ul>
-    </body>
-    </html>
-
+  </body>
+</html>
 ```
 
 .....`<body>`元素的子孙元素不仅包含直接的子元素`<div>`和`<ul>`，还包含像`<li>` (`<ul>`的子元素)和`<b>`(`<li>`的子元素)这样的元素一整个子树。
@@ -84,25 +80,25 @@ DOM 让我们可以对元素和它们中的内容做任何事，但是首先我�
 
 下面这个例子显示了`document.body`的子元素:
 
-```
-    <html>
-    <body>
+```html
+<html>
+  <body>
     <div>Begin</div>
 
     <ul>
-    <li>Information</li>
+      <li>Information</li>
     </ul>
 
     <div>End</div>
 
     <script>
-        for (let i = 0;i < document.body.childNodes.length;i++) {
-            alert(document.body.childNodes[i]);  //Text,DIV,Text,UL,...,SCRIPT
-        }
+      for (let i = 0; i < document.body.childNodes.length; i++) {
+        alert(document.body.childNodes[i]); //Text,DIV,Text,UL,...,SCRIPT
+      }
     </script>
     ...more stuff...
-    </body>
-    </html>
+  </body>
+</html>
 ```
 
 请注意这里的一个有趣的细节。如果我们运行上面的这个例子，所显示的最后一个元素是`<script>`。实际上，文档下面还有很多东西，但是在这个脚本运行的时候，浏览器还没有读到下面的内容，所以这个脚本也就看不到它们。
@@ -111,9 +107,9 @@ DOM 让我们可以对元素和它们中的内容做任何事，但是首先我�
 
 它们只是简写。如果元素存在子节点，那么下面的脚本运行结果将是 true:
 
-```
-    elem.childNodes[0] === elem.firstChild
-    elem.childNodes[elem.childNodes.length - 1] === elem.lastChild
+```html
+elem.childNodes[0] === elem.firstChild elem.childNodes[elem.childNodes.length -
+1] === elem.lastChild
 ```
 
 这里还有一个特别的函数`elem.hasChildNodes()`用于检查节点是否有子节点。
@@ -164,12 +160,12 @@ alert(Array.from(document.childNodes).filter); //function
 >
 > 请不要这么做，`for..in`循环遍历的是所有可枚举的(enumerable)属性。集合还有一些"额外的"很少被用到的属性，通常这些属性也是我们不期望得到的:
 >
-> ```
+> ```html
 > <body>
-> <script>
-> //显示 0，1，length，item，value及其他
-> for (let prop in document.body.childNodes) alert(prop);
-> </script>
+>   <script>
+>     //显示 0，1，length，item，value及其他
+>     for (let prop in document.body.childNodes) alert(prop);
+>   </script>
 > </body>
 > ```
 
@@ -179,10 +175,15 @@ alert(Array.from(document.childNodes).filter); //function
 
 例如，`<head>`和`<body>`就是兄弟节点:
 
-```
-    <html>
-        <head>...</head><body>...</body>
-    </html>
+```html
+<html>
+  <head>
+    ...
+  </head>
+  <body>
+    ...
+  </body>
+</html>
 ```
 
 - `<body>`可以说是`<head>`的"下一个"或者"右边"兄弟节点。
@@ -231,7 +232,7 @@ alert(document.body.previousSibling); //HTMLHeadElement
 >
 > 唯一的例外就是`document.documentElement`:
 >
-> ```js
+> ```html
 > alert(document.documentElement.parentNode); //document
 > alert(document.documentElement.parentElement); //null
 > ```
@@ -252,25 +253,25 @@ alert(document.body.previousSibling); //HTMLHeadElement
 
 让我们修改上面的一个示例:用`children`来替换`childNodes`。现在它只显示元素:
 
-```
-    <html>
-    <body>
+```html
+<html>
+  <body>
     <div>Begin</div>
 
     <ul>
-    <li>Information</li>
+      <li>Information</li>
     </ul>
 
     <div>End</div>
 
     <script>
-    for (let elem of docuoment.body.children) {
-        alert(elem);  //DIV,UL,DIV,SCRIPT
-    }
+      for (let elem of docuoment.body.children) {
+        alert(elem); //DIV,UL,DIV,SCRIPT
+      }
     </script>
     ....
-    </body>
-    </html>
+  </body>
+</html>
 ```
 
 ## 更多链接:表格
@@ -304,21 +305,23 @@ alert(document.body.previousSibling); //HTMLHeadElement
 
 用法示例:
 
-```
-    <table id="table">
-        <tr>
-        <td>one</td><td>two</td>
-        </tr>
-        <tr>
-        <td>three</td><td>four</td>
-        </tr>
-    </table>
+```html
+<table id="table">
+  <tr>
+    <td>one</td>
+    <td>two</td>
+  </tr>
+  <tr>
+    <td>three</td>
+    <td>four</td>
+  </tr>
+</table>
 
-    <script>
-        //获取带有"two"的td (第一行，第二列)
-        let td = table.rwos[0].cells[1];
-        td.style.backgroundColor = "red";  //highlight it
-    </script>
+<script>
+  //获取带有"two"的td (第一行，第二列)
+  let td = table.rwos[0].cells[1];
+  td.style.backgroundColor = "red"; //highlight it
+</script>
 ```
 
 规范:[tabular data](https://html.spec.whatwg.org/multipage/tables.html)。
