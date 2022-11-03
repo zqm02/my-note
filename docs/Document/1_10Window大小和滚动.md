@@ -109,3 +109,53 @@ alert("当前已从左侧滚动:" + window.pageXOffset);
   要滚动到最开始，我们可以使用`scrollTo(0,0)`。
 
 这些方法适用于所有浏览器。
+
+## scrollIntoView
+
+为了完整起见，让我们再介绍一种方法:
+[elem.scrollIntoView(top)](https://developer.mozilla.org/zh/docs/Web/API/Element/scrollIntoView)。
+
+对`elem.scrollIntoView(top)`的调用将滚动页面以使
+`elem`可见。它有一个参数:
+
+- 如果`top=true`(默认值)，页面滚动，使`elem`出现在窗口顶部。元素的上边缘将与窗口顶部对齐。
+- 如果`top=false`，页面滚动，使`elem`出现在窗口底部。元素的底部边缘将与窗口底部对齐。
+
+## 禁止滚动
+
+有时候我们需要使文档"不可滚动"。例如，当我们需要用一条立即引起注意的大消息来覆盖文档时，我们希望访问者与该消息而不是与文档进行交互。
+
+要使文档不可滚动，只需要设置
+`document.body.style.overflow = "hidden"`。该页面将“冻结”在其当前滚动位置上。
+
+我们还可以使用相同的技术来冻结其他元素的滚动，而不仅仅是`document.body`。
+
+这个方法的缺点是会使滚动条消失。如果滚动条占用了一些空间，它原本占用的空间就会空出来，那么内容就会"跳"进去以填充它。
+
+这看起来有点奇怪，但是我们可以对比冻结前后的
+`clientWidth`。如果它增加了(滚动条消失后)，那么我们可以在`document.body`中滚动条原来的位置处通过添加
+`padding`，来替代滚动条，这样这个问题就解决了。保持了滚动条冻结前后文档内容宽度相同。
+
+## 总结
+
+几何：
+
+- 文档可见部分的 width/height(内容区域的 width/height):
+  `document.documentElement.clientWidth/clientHeight`
+
+- 整个文档的 width/height,其中包括滚动出去的部分:
+  ```js
+  let scrollHeight = Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.offsetHeight,
+    document.body.clientHeight,
+    document.documentElement.clientHeight
+  );
+  ```
+
+滚动：
+
+- 读取当前的滚动:
+  `window.pageYOffset/`
