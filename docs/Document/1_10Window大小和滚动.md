@@ -158,4 +158,9 @@ alert("当前已从左侧滚动:" + window.pageXOffset);
 滚动：
 
 - 读取当前的滚动:
-  `window.pageYOffset/`
+  `window.pageYOffset/pageXOffset`。
+
+- 更改当前的滚动:
+  - `window.scrollTo(pageX,pageY)`--绝对坐标，
+  - `window.scrollBy(x,y)`--相对当前位置进行滚动，
+  - `elem.scrollIntoView(top)`--滚动以使`elem`可见(`elem`与窗口的顶部/底部对齐)。
