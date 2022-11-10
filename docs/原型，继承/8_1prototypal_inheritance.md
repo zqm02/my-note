@@ -178,7 +178,7 @@ let admin = {
   isAdmin: true,
 };
 
-alert(admin, fullName); // John Smith   (*)
+alert(admin.fullName); // John Smith   (*)
 
 // setter triggers!
 admin.fullName = "Alice Cooper"; //(**)
