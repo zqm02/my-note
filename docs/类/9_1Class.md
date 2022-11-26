@@ -45,7 +45,11 @@ let user = new User("John");
 user.sayHi();
 ```
 
-当`new User("John")`被调用: 1.一个新对象被创建。 2.`constructor`使用给定的参数运行，并将其赋值给`this.name`。
+当`new User("John")`被调用: 
+
+1.一个新对象被创建。 
+
+2.`constructor`使用给定的参数运行，并将其赋值给`this.name`。
 
 ....然后我们就可以调用对象方法了，例如`user.sayHi`。
 
