@@ -82,3 +82,96 @@ document.addEventListener("keydown", function (event) {
 如果我们在代码中检查`event.code == 'KeyZ'`,那么对于使用德式布局键盘的人来说，当他们按下<kbd>Y</kbd>时,这个测试就通过了。
 
 听起来很奇怪，但事实确实如此。
+
+因此，`event.code`可能由于意外的键盘布局而与错误的字符进行了匹配。不同键盘布局中的相同字母可能会映射到不同的物理键，从而导致了他们有不同的代码。幸运的是，这种情况只发生在几个代码上，例如`keyA`、`keyQ`、`keyZ`，而诸如`Shift`这样的特殊的按键没有发生这种情况。
+
+为了可靠地跟踪与受键盘布局影响的字符，使用`event.key`可能是一个更好的方式。
+
+另一方面，`event.code`的好处是，绑定到物理按键位置的`event.code`始终保持不变。因此，即使在切换了语言的情况下，依赖于它的热键也能正常工作。
+
+我们想要处理与布局有关的按键？那么`event.key`是我们必选的方式。
+
+或者我们希望一个热键即使在切换了语言后，仍能正常使用？那么`event.code`可能会更好。
+
+## 自动修复
+
+如果按下一个键足够长的时间，它就会开始"自动修复":`keydown`会被依次又一次地触发，然后当按键被释放时，我们最终会得到`keyup`。因此，有很多`keydown`却只有一个`keyup`是很正常的。
+
+对于由自动修复触发的事件，`event`对象的`event.repeat`属性被设置为`true`。
+
+## 默认行为
+
+默认行为各不相同，因为键盘可能会触发很多可能的东西。
+
+例如:
+
+- 出现在屏幕上的一个字符(最明显的结果)
+- 一个字符被删除(<kbd>Delete</kbd>键)
+- 滚动页面(<kbd>PageDown</kbd>键)
+- 浏览器打开“保存页面”对话框(<kbd>Ctrl+s</kbd>)
+- .....
+
+阻止对`keydown`的默认行为可以取消大多数的行为，但基于 OS 的特殊按键除外。例如，在 Windows 中，<kbd>Alt+F4</kbd>会关闭当前浏览器窗口。并且无法通过在 JavaScript 中阻止默认行为来阻止它。
+
+例如，下面的这个`<input>`期望输入的内容为一个电话号码，因为它不会接受数字，`+`,`()`,`-`以外的按键:
+
+```js
+  <script>
+          function checkPhoneKey(key) {
+            return (key >= '0' && key <= '9') || ['+' , '(',')','-'].includes(key);
+          }
+  </script>
+  <input onkeydown "return checkPhoneKey(event.key)" placeholder="请输入手机号" type="tel>
+```
+
+这里`onkeydown`的处理程序使用`checkPhoneKey`来检查被按下的按键。如果它是有效的(`0...9`或`+-()`之一)，那么将返回`true`，否则返回`false`。
+
+我们都知道，像上面那样，从事件处理程序返回`false`会阻止事件的默认行为，所以如果按下的按键未通过按键检查，那么`<input>`中什么都不会出现(从事件处理程序返回`true`不会对任何行为产生影响，只有返回`false`会产生对应的影响)。
+
+请注意，像<kbd>Backspace</kbd>,<kbd>Left</kbd>,<kbd>Right</kbd>这样的特殊按键在`<input>`中无效。这是严格过滤器`checkPhoneKey`的副作用。这些按键会使`checkPhoneKey`返回`false`。
+
+让我们把过滤条件放宽一点，允许<kbd>Left</kbd>,<kbd>Right</kbd>,<kbd>Delete</kbd>,<kbd>Backspace</kbd>按键:
+
+```js
+  <script>
+   <script>
+function checkPhoneKey(key) {
+  return (key >= '0' && key <= '9') ||
+    ['+','(',')','-','ArrowLeft','ArrowRight','Delete','Backspace'].includes(key);
+}
+</script>
+<input onkeydown="return checkPhoneKey(event.key)" placeholder="Phone, please" type="tel">
+  </script>
+```
+
+现在方向键和删除键都能正常使用了。
+
+.....即使我们对按键进行了过滤，但仍然可以使用鼠标右键单击+粘贴来输入任何内容。移动端设备提供了其他输入内容的方式。因此，这个过滤器并不是 100%可靠。
+
+另一种方式是跟踪`oninput`事件--在任何修改后都会触发此事件。这样我哦们就可以检查新的`input.value`，并在其无效时修改它/高亮显示`<input>`。或者我们可以同时使用这两个事件处理程序。
+
+## 历史遗留问题
+
+## 移动端键盘
+
+当使用虚拟/移动端键盘时，更正式一点的名字叫做 IME(Input-Method-Editor)，W3C 标准规定 KeydownEvent 的`e.keyCode`应该为`299`，并且`e.key`应该为`"Unidentified"`
+
+当按下某些按键(例如箭头或退格键)时，虽然其中一些可能仍然使用正确的值来表示`e.key`,`e.code`,`e.keyCode`.....但并不能保证所有情况下都能对应正确的值。所以你的键盘逻辑可能不能保证适用于移动设备。
+
+## 总结
+
+按一个键盘总是会产生一个键盘事件，无论是符号键，还是例如<kbd>Shift</kbd>或<kbd>Ctrl</kbd>等特殊按键。唯一的例外是有时会出现在笔记本电脑上的键盘上的<kbd>Fn</kbd>键。它没有键盘事件因为它通常是被在比 OS 更低的级别上实现的。
+
+键盘事件:
+
+- `keydown`--在按下键时(如果长按按键，则将自动重复)
+- `keyup`--释放按键时。
+
+键盘事件的主要属性:
+
+- `code`--"按键代码"(`"KeyA"`,`"ArroLeft"`等)，特定于键盘上按键的物理位置。
+- `key`--字符(`"A"`,`"a"`等)，对于非字符(non0character)的按键，通常具有`code`相同的值。
+
+过去，键盘事件有时会被用于跟踪表单字段中的用户输入。这并不可靠，因为输入可能来自各种来源。我们有`input`和`change`事件来处理任何输入
+
+当我们真的想要键盘时，我们应该使用键盘事件。例如，对热键或特殊键作出反应。
